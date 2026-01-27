@@ -1,4 +1,8 @@
 import TelegramBot from 'node-telegram-bot-api';
+import express from 'express';
+
+const app = express();
+const port = Number(process.env.PORT) || 10000;
 
 const token = '8051153052:AAH2kD20SdH48uKCPZqggk8_z6rfEO3nbCQ';
 const bot = new TelegramBot(token, { polling: true });
@@ -1073,4 +1077,10 @@ bot.on('message', async (msg) => {
       // Ignore messages when not in registration flow
       break;
   }
+});
+
+// HTTP server for Render port scan / health check
+app.get('/', (_req, res) => res.send('ok'));
+app.listen(port, '0.0.0.0', () => {
+  console.log('✅ Server successfully bound to 0.0.0.0:' + port);
 });
