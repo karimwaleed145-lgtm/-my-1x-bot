@@ -32,14 +32,14 @@ const translations: Record<string, Record<string, string>> = {
     promoMarketing: "🛠 Promo & Marketing Materials",
     commissionPayouts: "💰 Commission & Payouts",
     downloadAndroid: "📱 Download Android App",
-    vipSupportCenter: "📞 VIP Support Center",
+    premiumSupportCenter: "📞 Premium Support Center",
     promoMarketingDesc: "Access high-converting banners and unique promo codes to track players effortlessly.",
     registration: "📝 Registration",
     support: "🛠 Support",
     registerMenu: "Choose your registration method:",
     optionA: "Option A: Sign up by Link",
     optionAInstant: "🚀 Instant Activation (Via Link)",
-    optionBVipManaged: "👨‍💼 VIP Managed Setup",
+    premiumManagedSetup: "👨‍💼 Premium Managed Setup",
     optionB: "Option B: Fill Info",
     shareContact: "📞 Share My Official Contact",
     linkFlowEmail: "To finalize your activation, please provide your Email address.",
@@ -56,6 +56,12 @@ const translations: Record<string, Record<string, string>> = {
     reviewTitle: "📋 Review your details",
     confirmDetails: "✅ Confirm Details",
     startOver: "❌ Start Over",
+    verifyRegistrationDetails: "📝 Verify your registration details:",
+    confirmActivation: "✅ Confirm Activation",
+    cancelEdit: "❌ Cancel / Edit",
+    activationSent: "🚀 Activation request sent to management.",
+    activationCancelled: "❌ Activation cancelled.",
+    typeCountry: "Please type your country name:",
     supportMenu: "Choose a support topic:",
     twoFactorAuth: "🔐 2-Factor Authentication (2FA)",
     withdrawCommission: "💰 Withdraw Commission",
@@ -75,14 +81,14 @@ const translations: Record<string, Record<string, string>> = {
     promoMarketing: "🛠 Промо и маркетинг",
     commissionPayouts: "💰 Комиссии и выплаты",
     downloadAndroid: "📱 Скачать приложение Android",
-    vipSupportCenter: "📞 VIP-поддержка",
+    premiumSupportCenter: "📞 Premium-поддержка",
     promoMarketingDesc: "Доступ к высококонверсионным баннерам и уникальным промокодам для удобного отслеживания игроков.",
     registration: "📝 Регистрация",
     support: "🛠 Поддержка",
     registerMenu: "Выберите способ регистрации:",
     optionA: "Вариант A: Регистрация по ссылке",
     optionAInstant: "🚀 Мгновенная активация (по ссылке)",
-    optionBVipManaged: "👨‍💼 VIP-регистрация",
+    premiumManagedSetup: "👨‍💼 Premium-регистрация",
     optionB: "Вариант B: Заполнить информацию",
     shareContact: "📞 Поделиться моим контактом",
     linkFlowEmail: "Для завершения активации укажите ваш Email.",
@@ -99,6 +105,12 @@ const translations: Record<string, Record<string, string>> = {
     reviewTitle: "📋 Проверьте данные",
     confirmDetails: "✅ Подтвердить",
     startOver: "❌ Начать заново",
+    verifyRegistrationDetails: "📝 Проверьте данные регистрации:",
+    confirmActivation: "✅ Подтвердить активацию",
+    cancelEdit: "❌ Отмена / Изменить",
+    activationSent: "🚀 Запрос на активацию отправлен руководству.",
+    activationCancelled: "❌ Активация отменена.",
+    typeCountry: "Введите название страны:",
     supportMenu: "Выберите тему поддержки:",
     twoFactorAuth: "🔐 Двухфакторная аутентификация (2FA)",
     withdrawCommission: "💰 Вывести комиссию",
@@ -118,14 +130,14 @@ const translations: Record<string, Record<string, string>> = {
     promoMarketing: "🛠 Promosyon ve Pazarlama",
     commissionPayouts: "💰 Komisyon ve Ödemeler",
     downloadAndroid: "📱 Android Uygulaması İndir",
-    vipSupportCenter: "📞 VIP Destek",
+    premiumSupportCenter: "📞 Premium Destek",
     promoMarketingDesc: "Yüksek dönüşüm sağlayan afişler ve oyuncuları kolayca takip etmek için benzersiz promosyon kodlarına erişin.",
     registration: "📝 Kayıt",
     support: "🛠 Destek",
     registerMenu: "Kayıt yönteminizi seçin:",
     optionA: "Seçenek A: Bağlantı ile Kayıt Ol",
     optionAInstant: "🚀 Anında Aktivasyon (Bağlantı ile)",
-    optionBVipManaged: "👨‍💼 VIP Kayıt",
+    premiumManagedSetup: "👨‍💼 Premium Kayıt",
     optionB: "Seçenek B: Bilgi Doldur",
     shareContact: "📞 Resmi iletişimimi paylaş",
     linkFlowEmail: "Aktivasyonu tamamlamak için lütfen E-posta adresinizi girin.",
@@ -142,6 +154,12 @@ const translations: Record<string, Record<string, string>> = {
     reviewTitle: "📋 Bilgilerinizi kontrol edin",
     confirmDetails: "✅ Onayla",
     startOver: "❌ Baştan başla",
+    verifyRegistrationDetails: "📝 Kayıt bilgilerinizi doğrulayın:",
+    confirmActivation: "✅ Aktivasyonu Onayla",
+    cancelEdit: "❌ İptal / Düzenle",
+    activationSent: "🚀 Aktivasyon talebi yönetime iletildi.",
+    activationCancelled: "❌ Aktivasyon iptal edildi.",
+    typeCountry: "Lütfen ülke adınızı yazın:",
     supportMenu: "Bir destek konusu seçin:",
     twoFactorAuth: "🔐 İki Faktörlü Kimlik Doğrulama (2FA)",
     withdrawCommission: "💰 Komisyon Çek",
@@ -161,14 +179,14 @@ const translations: Record<string, Record<string, string>> = {
     promoMarketing: "🛠 Promo y marketing",
     commissionPayouts: "💰 Comisión y pagos",
     downloadAndroid: "📱 Descargar app Android",
-    vipSupportCenter: "📞 Soporte VIP",
+    premiumSupportCenter: "📞 Soporte Premium",
     promoMarketingDesc: "Acceda a banners de alta conversión y códigos promocionales únicos para seguir a los jugadores sin esfuerzo.",
     registration: "📝 Registro",
     support: "🛠 Soporte",
     registerMenu: "Elija su método de registro:",
     optionA: "Opción A: Registrarse por Enlace",
     optionAInstant: "🚀 Activación instantánea (por enlace)",
-    optionBVipManaged: "👨‍💼 Registro VIP",
+    premiumManagedSetup: "👨‍💼 Registro Premium",
     optionB: "Opción B: Completar Información",
     shareContact: "📞 Compartir mi contacto",
     linkFlowEmail: "Para finalizar su activación, proporcione su dirección de correo electrónico.",
@@ -185,6 +203,12 @@ const translations: Record<string, Record<string, string>> = {
     reviewTitle: "📋 Revise sus datos",
     confirmDetails: "✅ Confirmar datos",
     startOver: "❌ Empezar de nuevo",
+    verifyRegistrationDetails: "📝 Verifique sus datos de registro:",
+    confirmActivation: "✅ Confirmar activación",
+    cancelEdit: "❌ Cancelar / Editar",
+    activationSent: "🚀 Solicitud de activación enviada a gestión.",
+    activationCancelled: "❌ Activación cancelada.",
+    typeCountry: "Escriba el nombre de su país:",
     supportMenu: "Elija un tema de soporte:",
     twoFactorAuth: "🔐 Autenticación de Dos Factores (2FA)",
     withdrawCommission: "💰 Retirar Comisión",
@@ -204,14 +228,14 @@ const translations: Record<string, Record<string, string>> = {
     promoMarketing: "🛠 Promo e marketing",
     commissionPayouts: "💰 Comissão e pagamentos",
     downloadAndroid: "📱 Baixar app Android",
-    vipSupportCenter: "📞 Suporte VIP",
+    premiumSupportCenter: "📞 Suporte Premium",
     promoMarketingDesc: "Acesse banners de alta conversão e códigos promocionais únicos para rastrear jogadores facilmente.",
     registration: "📝 Registro",
     support: "🛠 Suporte",
     registerMenu: "Escolha seu método de registro:",
     optionA: "Opção A: Inscrever-se por Link",
     optionAInstant: "🚀 Ativação instantânea (via link)",
-    optionBVipManaged: "👨‍💼 Cadastro VIP",
+    premiumManagedSetup: "👨‍💼 Cadastro Premium",
     optionB: "Opção B: Preencher Informações",
     shareContact: "📞 Compartilhar meu contacto",
     linkFlowEmail: "Para finalizar sua ativação, forneça seu endereço de email.",
@@ -228,6 +252,12 @@ const translations: Record<string, Record<string, string>> = {
     reviewTitle: "📋 Revise seus dados",
     confirmDetails: "✅ Confirmar dados",
     startOver: "❌ Começar de novo",
+    verifyRegistrationDetails: "📝 Verifique seus dados de registro:",
+    confirmActivation: "✅ Confirmar ativação",
+    cancelEdit: "❌ Cancelar / Editar",
+    activationSent: "🚀 Pedido de ativação enviado à gestão.",
+    activationCancelled: "❌ Ativação cancelada.",
+    typeCountry: "Digite o nome do seu país:",
     supportMenu: "Escolha um tópico de suporte:",
     twoFactorAuth: "🔐 Autenticação de Dois Fatores (2FA)",
     withdrawCommission: "💰 Sacar Comissão",
@@ -247,14 +277,14 @@ const translations: Record<string, Record<string, string>> = {
     promoMarketing: "🛠 Promo et marketing",
     commissionPayouts: "💰 Commission et paiements",
     downloadAndroid: "📱 Télécharger l'app Android",
-    vipSupportCenter: "📞 Support VIP",
+    premiumSupportCenter: "📞 Support Premium",
     promoMarketingDesc: "Accédez à des bannières à forte conversion et des codes promo uniques pour suivre les joueurs facilement.",
     registration: "📝 Inscription",
     support: "🛠 Support",
     registerMenu: "Choisissez votre méthode d'inscription:",
     optionA: "Option A: S'inscrire par Lien",
     optionAInstant: "🚀 Activation instantanée (via lien)",
-    optionBVipManaged: "👨‍💼 Inscription VIP",
+    premiumManagedSetup: "👨‍💼 Inscription Premium",
     optionB: "Option B: Remplir les Informations",
     shareContact: "📞 Partager mon contact",
     linkFlowEmail: "Pour finaliser votre activation, veuillez fournir votre adresse email.",
@@ -271,6 +301,12 @@ const translations: Record<string, Record<string, string>> = {
     reviewTitle: "📋 Vérifiez vos données",
     confirmDetails: "✅ Confirmer les données",
     startOver: "❌ Recommencer",
+    verifyRegistrationDetails: "📝 Vérifiez vos données d'inscription:",
+    confirmActivation: "✅ Confirmer l'activation",
+    cancelEdit: "❌ Annuler / Modifier",
+    activationSent: "🚀 Demande d'activation envoyée à la direction.",
+    activationCancelled: "❌ Activation annulée.",
+    typeCountry: "Veuillez saisir le nom de votre pays:",
     supportMenu: "Choisissez un sujet de support:",
     twoFactorAuth: "🔐 Authentification à Deux Facteurs (2FA)",
     withdrawCommission: "💰 Retirer la Commission",
@@ -290,14 +326,14 @@ const translations: Record<string, Record<string, string>> = {
     promoMarketing: "🛠 प्रोमो और मार्केटिंग",
     commissionPayouts: "💰 कमीशन और भुगतान",
     downloadAndroid: "📱 Android ऐप डाउनलोड करें",
-    vipSupportCenter: "📞 VIP सहायता",
+    premiumSupportCenter: "📞 Premium सहायता",
     promoMarketingDesc: "उच्च रूपांतरण बैनर और अद्वितीय प्रोमो कोड तक पहुंचें ताकि खिलाड़ियों को आसानी से ट्रैक कर सकें।",
     registration: "📝 पंजीकरण",
     support: "🛠 सहायता",
     registerMenu: "अपना पंजीकरण विधि चुनें:",
     optionA: "विकल्प A: लिंक से साइन अप करें",
     optionAInstant: "🚀 तत्काल सक्रियण (लिंक के माध्यम से)",
-    optionBVipManaged: "👨‍💼 VIP पंजीकरण",
+    premiumManagedSetup: "👨‍💼 Premium पंजीकरण",
     optionB: "विकल्प B: जानकारी भरें",
     shareContact: "📞 मेरा संपर्क साझा करें",
     linkFlowEmail: "अपना सक्रियण पूरा करने के लिए कृपया अपना ईमेल पता प्रदान करें।",
@@ -314,6 +350,12 @@ const translations: Record<string, Record<string, string>> = {
     reviewTitle: "📋 अपना विवरण देखें",
     confirmDetails: "✅ विवरण की पुष्टि करें",
     startOver: "❌ फिर से शुरू करें",
+    verifyRegistrationDetails: "📝 अपना पंजीकरण विवरण सत्यापित करें:",
+    confirmActivation: "✅ सक्रियण की पुष्टि करें",
+    cancelEdit: "❌ रद्द करें / संपादित करें",
+    activationSent: "🚀 प्रबंधन को सक्रियण अनुरोध भेजा गया।",
+    activationCancelled: "❌ सक्रियण रद्द।",
+    typeCountry: "कृपया अपने देश का नाम टाइप करें:",
     supportMenu: "एक सहायता विषय चुनें:",
     twoFactorAuth: "🔐 दो-कारक प्रमाणीकरण (2FA)",
     withdrawCommission: "💰 कमीशन निकालें",
@@ -333,14 +375,14 @@ const translations: Record<string, Record<string, string>> = {
     promoMarketing: "🛠 Promo e marketing",
     commissionPayouts: "💰 Comissão e pagamentos",
     downloadAndroid: "📱 Baixar app Android",
-    vipSupportCenter: "📞 Suporte VIP",
+    premiumSupportCenter: "📞 Suporte Premium",
     promoMarketingDesc: "Acesse banners de alta conversão e códigos promocionais únicos para rastrear jogadores facilmente.",
     registration: "📝 Registro",
     support: "🛠 Suporte",
     registerMenu: "Escolha seu método de registro:",
     optionA: "Opção A: Inscrever-se por Link",
     optionAInstant: "🚀 Ativação instantânea (via link)",
-    optionBVipManaged: "👨‍💼 Cadastro VIP",
+    premiumManagedSetup: "👨‍💼 Cadastro Premium",
     optionB: "Opção B: Preencher Informações",
     shareContact: "📞 Compartilhar meu contacto",
     linkFlowEmail: "Para finalizar sua ativação, forneça seu endereço de email.",
@@ -357,6 +399,12 @@ const translations: Record<string, Record<string, string>> = {
     reviewTitle: "📋 Revise seus dados",
     confirmDetails: "✅ Confirmar dados",
     startOver: "❌ Começar de novo",
+    verifyRegistrationDetails: "📝 Verifique seus dados de registro:",
+    confirmActivation: "✅ Confirmar ativação",
+    cancelEdit: "❌ Cancelar / Editar",
+    activationSent: "🚀 Pedido de ativação enviado à gestão.",
+    activationCancelled: "❌ Ativação cancelada.",
+    typeCountry: "Digite o nome do seu país:",
     supportMenu: "Escolha um tópico de suporte:",
     twoFactorAuth: "🔐 Autenticação de Dois Fatores (2FA)",
     withdrawCommission: "💰 Sacar Comissão",
@@ -376,14 +424,14 @@ const translations: Record<string, Record<string, string>> = {
     promoMarketing: "🛠 Khuyến mãi & marketing",
     commissionPayouts: "💰 Hoa hồng & thanh toán",
     downloadAndroid: "📱 Tải app Android",
-    vipSupportCenter: "📞 Hỗ trợ VIP",
+    premiumSupportCenter: "📞 Hỗ trợ Premium",
     promoMarketingDesc: "Truy cập banner chuyển đổi cao và mã khuyến mãi độc quyền để theo dõi người chơi dễ dàng.",
     registration: "📝 Đăng Ký",
     support: "🛠 Hỗ Trợ",
     registerMenu: "Chọn phương thức đăng ký:",
     optionA: "Tùy chọn A: Đăng Ký qua Liên Kết",
     optionAInstant: "🚀 Kích hoạt ngay (qua liên kết)",
-    optionBVipManaged: "👨‍💼 Đăng ký VIP",
+    premiumManagedSetup: "👨‍💼 Đăng ký Premium",
     optionB: "Tùy chọn B: Điền Thông Tin",
     shareContact: "📞 Chia sẻ liên hệ của tôi",
     linkFlowEmail: "Để hoàn tất kích hoạt, vui lòng cung cấp địa chỉ email của bạn.",
@@ -400,6 +448,12 @@ const translations: Record<string, Record<string, string>> = {
     reviewTitle: "📋 Xem lại thông tin của bạn",
     confirmDetails: "✅ Xác nhận thông tin",
     startOver: "❌ Bắt đầu lại",
+    verifyRegistrationDetails: "📝 Xác minh thông tin đăng ký của bạn:",
+    confirmActivation: "✅ Xác nhận kích hoạt",
+    cancelEdit: "❌ Hủy / Chỉnh sửa",
+    activationSent: "🚀 Yêu cầu kích hoạt đã gửi đến quản lý.",
+    activationCancelled: "❌ Đã hủy kích hoạt.",
+    typeCountry: "Vui lòng nhập tên quốc gia của bạn:",
     supportMenu: "Chọn chủ đề hỗ trợ:",
     twoFactorAuth: "🔐 Xác Thực Hai Yếu Tố (2FA)",
     withdrawCommission: "💰 Rút Hoa Hồng",
@@ -419,14 +473,14 @@ const translations: Record<string, Record<string, string>> = {
     promoMarketing: "🛠 Промо және маркетинг",
     commissionPayouts: "💰 Комиссия және төлемдер",
     downloadAndroid: "📱 Android қолданбасын жүктеу",
-    vipSupportCenter: "📞 VIP қолдау",
+    premiumSupportCenter: "📞 Premium қолдау",
     promoMarketingDesc: "Ойыншыларды оңай қадағалау үшін жоғары конверсиялы баннерлер мен бірегей промокодтарға қол жеткізіңіз.",
     registration: "📝 Тіркелу",
     support: "🛠 Қолдау",
     registerMenu: "Тіркелу әдісін таңдаңыз:",
     optionA: "Нұсқа A: Сілтеме арқылы Тіркелу",
     optionAInstant: "🚀 Лезде белсендіру (сілтеме арқылы)",
-    optionBVipManaged: "👨‍💼 VIP тіркелу",
+    premiumManagedSetup: "👨‍💼 Premium тіркелу",
     optionB: "Нұсқа B: Ақпаратты Толтыру",
     shareContact: "📞 Байланысымды бөлісу",
     linkFlowEmail: "Белсендіруді аяқтау үшін электрондық поштаңызды көрсетіңіз.",
@@ -443,6 +497,12 @@ const translations: Record<string, Record<string, string>> = {
     reviewTitle: "📋 Деректеріңізді тексеріңіз",
     confirmDetails: "✅ Растау",
     startOver: "❌ Қайта бастау",
+    verifyRegistrationDetails: "📝 Тіркелу деректерін тексеріңіз:",
+    confirmActivation: "✅ Белсендіруді растау",
+    cancelEdit: "❌ Болдырмау / Өңдеу",
+    activationSent: "🚀 Белсендіру сұранысы басшылыққа жіберілді.",
+    activationCancelled: "❌ Белсендіру болдырылмады.",
+    typeCountry: "Еліңіздің атын енгізіңіз:",
     supportMenu: "Қолдау тақырыбын таңдаңыз:",
     twoFactorAuth: "🔐 Екі Факторлы Аутентификация (2FA)",
     withdrawCommission: "💰 Комиссияны Алу",
@@ -462,14 +522,14 @@ const translations: Record<string, Record<string, string>> = {
     promoMarketing: "🛠 العروض والمواد التسويقية",
     commissionPayouts: "💰 العمولات والمدفوعات",
     downloadAndroid: "📱 تحميل تطبيق أندرويد",
-    vipSupportCenter: "📞 مركز الدعم VIP",
+    premiumSupportCenter: "📞 مركز الدعم Premium",
     promoMarketingDesc: "الوصول إلى بانرات عالية التحويل ورموز ترويجية فريدة لتتبع اللاعبين بسهولة.",
     registration: "📝 التسجيل",
     support: "🛠 الدعم",
     registerMenu: "اختر طريقة التسجيل:",
     optionA: "الخيار أ: التسجيل عبر الرابط",
     optionAInstant: "🚀 التفعيل الفوري (عبر الرابط)",
-    optionBVipManaged: "👨‍💼 التسجيل VIP",
+    premiumManagedSetup: "👨‍💼 التسجيل Premium",
     optionB: "الخيار ب: ملء المعلومات",
     shareContact: "📞 مشاركة رقمي الرسمي",
     linkFlowEmail: "لإتمام التفعيل، يرجى تقديم عنوان بريدك الإلكتروني.",
@@ -486,6 +546,12 @@ const translations: Record<string, Record<string, string>> = {
     reviewTitle: "📋 راجع بياناتك",
     confirmDetails: "✅ تأكيد البيانات",
     startOver: "❌ البدء من جديد",
+    verifyRegistrationDetails: "📝 تحقق من تفاصيل التسجيل:",
+    confirmActivation: "✅ تأكيد التفعيل",
+    cancelEdit: "❌ إلغاء / تعديل",
+    activationSent: "🚀 تم إرسال طلب التفعيل إلى الإدارة.",
+    activationCancelled: "❌ تم إلغاء التفعيل.",
+    typeCountry: "يرجى كتابة اسم بلدك:",
     supportMenu: "اختر موضوع الدعم:",
     twoFactorAuth: "🔐 المصادقة الثنائية (2FA)",
     withdrawCommission: "💰 سحب العمولة",
@@ -505,14 +571,14 @@ const translations: Record<string, Record<string, string>> = {
     promoMarketing: "🛠 Promo va marketing",
     commissionPayouts: "💰 Komissiya va to'lovlar",
     downloadAndroid: "📱 Android ilovani yuklash",
-    vipSupportCenter: "📞 VIP qo'llab-quvvatlash",
+    premiumSupportCenter: "📞 Premium qo'llab-quvvatlash",
     promoMarketingDesc: "O'yinchilarni oson kuzatish uchun yuqori konversiyali bannerlar va noyob promo kodlarga kirish.",
     registration: "📝 Ro'yxatdan o'tish",
     support: "🛠 Yordam",
     registerMenu: "Ro'yxatdan o'tish usulini tanlang:",
     optionA: "Variant A: Havola orqali ro'yxatdan o'tish",
     optionAInstant: "🚀 Tezkor aktivatsiya (havola orqali)",
-    optionBVipManaged: "👨‍💼 VIP ro'yxatdan o'tish",
+    premiumManagedSetup: "👨‍💼 Premium ro'yxatdan o'tish",
     optionB: "Variant B: Ma'lumotlarni to'ldirish",
     shareContact: "📞 Raqamimni ulashish",
     linkFlowEmail: "Aktivatsiyani yakunlash uchun elektron pochtangizni kiriting.",
@@ -529,6 +595,12 @@ const translations: Record<string, Record<string, string>> = {
     reviewTitle: "📋 Ma'lumotlaringizni tekshiring",
     confirmDetails: "✅ Tasdiqlash",
     startOver: "❌ Qaytadan boshlash",
+    verifyRegistrationDetails: "📝 Ro'yxatdan o'tish ma'lumotlarini tekshiring:",
+    confirmActivation: "✅ Faollashtirishni tasdiqlash",
+    cancelEdit: "❌ Bekor qilish / Tahrirlash",
+    activationSent: "🚀 Faollashtirish so'rovi boshqarmaga yuborildi.",
+    activationCancelled: "❌ Faollashtirish bekor qilindi.",
+    typeCountry: "Mamlakat nomingizni kiriting:",
     supportMenu: "Yordam mavzusini tanlang:",
     twoFactorAuth: "🔐 Ikki Faktorli Autentifikatsiya (2FA)",
     withdrawCommission: "💰 Komissiyani Yechib Olish",
@@ -548,14 +620,14 @@ const translations: Record<string, Record<string, string>> = {
     promoMarketing: "🛠 促销与营销素材",
     commissionPayouts: "💰 佣金与支付",
     downloadAndroid: "📱 下载 Android 应用",
-    vipSupportCenter: "📞 VIP 支持中心",
+    premiumSupportCenter: "📞 Premium 支持中心",
     promoMarketingDesc: "获取高转化率横幅和独特促销代码，轻松追踪玩家。",
     registration: "📝 注册",
     support: "🛠 支持",
     registerMenu: "选择您的注册方式:",
     optionA: "选项 A: 通过链接注册",
     optionAInstant: "🚀 即时激活（通过链接）",
-    optionBVipManaged: "👨‍💼 VIP 注册",
+    premiumManagedSetup: "👨‍💼 Premium 注册",
     optionB: "选项 B: 填写信息",
     shareContact: "📞 分享我的联系方式",
     linkFlowEmail: "为完成激活，请提供您的电子邮件地址。",
@@ -572,6 +644,12 @@ const translations: Record<string, Record<string, string>> = {
     reviewTitle: "📋 请核对您的信息",
     confirmDetails: "✅ 确认信息",
     startOver: "❌ 重新开始",
+    verifyRegistrationDetails: "📝 请核验您的注册信息：",
+    confirmActivation: "✅ 确认激活",
+    cancelEdit: "❌ 取消 / 编辑",
+    activationSent: "🚀 激活请求已提交至管理。",
+    activationCancelled: "❌ 激活已取消。",
+    typeCountry: "请输入您的国家名称：",
     supportMenu: "选择一个支持主题:",
     twoFactorAuth: "🔐 双因素身份验证 (2FA)",
     withdrawCommission: "💰 提取佣金",
@@ -607,7 +685,17 @@ const isValidPromoCode = (code: string): boolean => {
 const AFFILIATE_URL = 'https://refpa58144.com/L?tag=d_4240218m_2528c_&site=4240218&ad=2528';
 const ANDROID_APP_URL = 'https://1x.partners/mobile-app';
 
-console.log('🚀 1XPartners VIP Funnel is running...');
+// Country options for callback (Option 1 — avoids freeze when user selects a country button)
+const COUNTRY_OPTIONS: { cb: string; name: string }[] = [
+  { cb: 'country_US', name: 'United States' },
+  { cb: 'country_GB', name: 'United Kingdom' },
+  { cb: 'country_IN', name: 'India' },
+  { cb: 'country_RU', name: 'Russia' },
+  { cb: 'country_TR', name: 'Turkey' },
+  { cb: 'country_OTHER', name: 'Other' }
+];
+
+console.log('🚀 1XPartners Premium Funnel is running...');
 
 // /start command handler
 bot.onText(/\/start/, async (msg) => {
@@ -670,7 +758,7 @@ bot.on('callback_query', async (query) => {
           [{ text: t(chatId, 'promoMarketing'), callback_data: 'promo_marketing' }],
           [{ text: t(chatId, 'commissionPayouts'), callback_data: 'commission_payouts' }],
           [{ text: t(chatId, 'downloadAndroid'), url: ANDROID_APP_URL }],
-          [{ text: t(chatId, 'vipSupportCenter'), callback_data: 'vip_support' }]
+          [{ text: t(chatId, 'premiumSupportCenter'), callback_data: 'vip_support' }]
         ]
       }
     });
@@ -685,7 +773,7 @@ bot.on('callback_query', async (query) => {
     await bot.sendMessage(chatId, t(chatId, 'registerMenu'), {
       reply_markup: {
         inline_keyboard: [
-          [{ text: t(chatId, 'optionBVipManaged'), callback_data: 'fill_info' }],
+          [{ text: t(chatId, 'premiumManagedSetup'), callback_data: 'fill_info' }],
           [{ text: t(chatId, 'optionAInstant'), callback_data: 'instant_link' }],
           [{ text: t(chatId, 'back'), callback_data: 'back_to_main' }]
         ]
@@ -725,7 +813,7 @@ bot.on('callback_query', async (query) => {
     return;
   }
 
-  // VIP Support Center (2FA + Demo)
+  // Premium Support Center (2FA + Demo)
   if (query.data === 'vip_support' || query.data === 'support') {
     session.step = 'support_menu';
     sessions.set(chatId, session);
@@ -855,7 +943,27 @@ bot.on('callback_query', async (query) => {
     return;
   }
 
-  // Confirm details — send report to admin only when user confirms
+  // Country selection (Option 1) — callback ensures correct transition, answerCallbackQuery already called first
+  if (query.data?.startsWith('country_') && session.step === 'get_country') {
+    if (query.data === 'country_OTHER') {
+      await bot.sendMessage(chatId, t(chatId, 'typeCountry'), {
+        reply_markup: { inline_keyboard: [[{ text: t(chatId, 'back'), callback_data: 'back_to_main' }]] }
+      });
+      return;
+    }
+    const opt = COUNTRY_OPTIONS.find((o) => o.cb === query.data);
+    if (opt) {
+      session.data.country = opt.name;
+      session.step = 'get_promo_code';
+      sessions.set(chatId, session);
+      await bot.sendMessage(chatId, t(chatId, 'enterPromoCode'), {
+        reply_markup: { inline_keyboard: [[{ text: t(chatId, 'back'), callback_data: 'back_to_main' }]] }
+      });
+    }
+    return;
+  }
+
+  // Confirm details — send report to admin only when user confirms (fill_info flow)
   if (query.data === 'confirm_details') {
     const sid = sessions.get(chatId);
     if (!sid || sid.step !== 'review' || !sid.data) return;
@@ -876,6 +984,45 @@ bot.on('callback_query', async (query) => {
     return;
   }
 
+  // Confirm Activation (Option 2 — Via Link): success message + forward to admin
+  if (query.data === 'confirm_activation') {
+    const sid = sessions.get(chatId);
+    if (!sid || sid.step !== 'review' || sid.flowType !== 'link' || !sid.data) return;
+    const from = query.from;
+    const uid = from?.id ?? chatId;
+    const displayName = [from?.first_name, from?.last_name].filter(Boolean).join(' ') || `User ${uid}`;
+    const username = from?.username ? `@${from.username}` : '—';
+    const d = sid.data;
+    const langLabel = sid.lang.toUpperCase();
+    const adminMessage = `👤 New Lead: [${displayName.replace(/[[\]]/g, '')}](tg://user?id=${uid})\n🆔 User ID: ${uid}\n👤 Username: ${username}\n📧 Email: ${d.email}\n🔑 Promo Code: ${d.promoCode}\n🗺 Language: ${langLabel}`;
+    await bot.sendMessage(MY_ADMIN_ID, adminMessage, { parse_mode: 'Markdown' });
+    await bot.sendMessage(chatId, t(chatId, 'activationSent'));
+    sessions.delete(chatId);
+    return;
+  }
+
+  // Cancel / Edit (Option 2 — Via Link): cancel message + main menu
+  if (query.data === 'cancel_activation') {
+    await bot.sendMessage(chatId, t(chatId, 'activationCancelled'));
+    session.step = 'main_menu';
+    session.flowType = undefined;
+    session.data = {};
+    sessions.set(chatId, session);
+    await bot.sendMessage(chatId, t(chatId, 'mainMenu'), {
+      parse_mode: 'Markdown',
+      reply_markup: {
+        inline_keyboard: [
+          [{ text: t(chatId, 'becomePartner'), callback_data: 'become_partner' }],
+          [{ text: t(chatId, 'promoMarketing'), callback_data: 'promo_marketing' }],
+          [{ text: t(chatId, 'commissionPayouts'), callback_data: 'commission_payouts' }],
+          [{ text: t(chatId, 'downloadAndroid'), url: ANDROID_APP_URL }],
+          [{ text: t(chatId, 'premiumSupportCenter'), callback_data: 'vip_support' }]
+        ]
+      }
+    });
+    return;
+  }
+
   // Start over — reset and show main menu
   if (query.data === 'start_over') {
     session.step = 'main_menu';
@@ -891,7 +1038,7 @@ bot.on('callback_query', async (query) => {
           [{ text: t(chatId, 'promoMarketing'), callback_data: 'promo_marketing' }],
           [{ text: t(chatId, 'commissionPayouts'), callback_data: 'commission_payouts' }],
           [{ text: t(chatId, 'downloadAndroid'), url: ANDROID_APP_URL }],
-          [{ text: t(chatId, 'vipSupportCenter'), callback_data: 'vip_support' }]
+          [{ text: t(chatId, 'premiumSupportCenter'), callback_data: 'vip_support' }]
         ]
       }
     });
@@ -913,7 +1060,7 @@ bot.on('callback_query', async (query) => {
           [{ text: t(chatId, 'promoMarketing'), callback_data: 'promo_marketing' }],
           [{ text: t(chatId, 'commissionPayouts'), callback_data: 'commission_payouts' }],
           [{ text: t(chatId, 'downloadAndroid'), url: ANDROID_APP_URL }],
-          [{ text: t(chatId, 'vipSupportCenter'), callback_data: 'vip_support' }]
+          [{ text: t(chatId, 'premiumSupportCenter'), callback_data: 'vip_support' }]
         ]
       }
     });
@@ -934,15 +1081,25 @@ bot.on('message', async (msg) => {
   if (!text && !(session.step === 'get_phone' && hasContact)) return;
   if (text && text.startsWith('/')) return;
 
-  // Helper to build review summary and show Confirm / Start Over
+  // Helper to build review summary and show Confirm / Start Over (fill_info) or Verify + Confirm Activation / Cancel (link)
   const sendReviewAndSetStep = () => {
     const d = session.data;
     const isLink = session.flowType === 'link';
-    const summary = isLink
-      ? `*Email:* ${d.email}\n*Promo Code:* ${d.promoCode}\n*Link:* ${AFFILIATE_URL}`
-      : `*Full Name:* ${d.fullName}\n*Email:* ${d.email}\n*Phone:* ${d.phone}\n*Country:* ${d.country}\n*Promo Code:* ${d.promoCode}`;
     session.step = 'review';
     sessions.set(chatId, session);
+    if (isLink) {
+      const body = t(chatId, 'verifyRegistrationDetails') + '\n\n*Email:* ' + d.email + '\n*Promo Code:* ' + d.promoCode;
+      return bot.sendMessage(chatId, body, {
+        parse_mode: 'Markdown',
+        reply_markup: {
+          inline_keyboard: [
+            [{ text: t(chatId, 'confirmActivation'), callback_data: 'confirm_activation' }],
+            [{ text: t(chatId, 'cancelEdit'), callback_data: 'cancel_activation' }]
+          ]
+        }
+      });
+    }
+    const summary = `*Full Name:* ${d.fullName}\n*Email:* ${d.email}\n*Phone:* ${d.phone}\n*Country:* ${d.country}\n*Promo Code:* ${d.promoCode}`;
     const body = t(chatId, 'reviewTitle') + '\n\n' + summary;
     return bot.sendMessage(chatId, body, {
       parse_mode: 'Markdown',
@@ -1005,7 +1162,7 @@ bot.on('message', async (msg) => {
               [{ text: t(chatId, 'promoMarketing'), callback_data: 'promo_marketing' }],
               [{ text: t(chatId, 'commissionPayouts'), callback_data: 'commission_payouts' }],
               [{ text: t(chatId, 'downloadAndroid'), url: ANDROID_APP_URL }],
-              [{ text: t(chatId, 'vipSupportCenter'), callback_data: 'vip_support' }]
+              [{ text: t(chatId, 'premiumSupportCenter'), callback_data: 'vip_support' }]
             ]
           }
         });
@@ -1016,11 +1173,16 @@ bot.on('message', async (msg) => {
       session.data.phone = phone.trim();
       session.step = 'get_country';
       sessions.set(chatId, session);
+      const countryRows = [
+        COUNTRY_OPTIONS.slice(0, 3).map((o) => ({ text: o.name, callback_data: o.cb })),
+        COUNTRY_OPTIONS.slice(3, 6).map((o) => ({ text: o.name, callback_data: o.cb })),
+        [{ text: t(chatId, 'back'), callback_data: 'back_to_main' }]
+      ];
       await bot.sendMessage(chatId, t(chatId, 'enterCountry'), {
         reply_markup: { remove_keyboard: true }
       });
       await bot.sendMessage(chatId, '\u200B', {
-        reply_markup: { inline_keyboard: [[{ text: t(chatId, 'back'), callback_data: 'back_to_main' }]] }
+        reply_markup: { inline_keyboard: countryRows }
       });
       break;
     }
