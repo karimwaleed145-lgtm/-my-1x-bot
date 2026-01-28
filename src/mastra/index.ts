@@ -836,10 +836,14 @@ bot.on('callback_query', async (query) => {
     }
 
     // Force Session Creation: Ensure session exists before processing
+    // Verify Object Name: Use the same 'sessions' Map that the message listener checks
     if (!session) {
       console.log(`[DEBUG] User clicked Country. Current Session: MISSING - Creating new session`);
-      session = { lang: 'en', step: 'get_country', flowType: 'fill_info' as const, data: {} };
-      sessions.set(chatId, session);
+      // Force Creation: If sessions[chatId] is undefined, create it immediately
+      const newSession = { lang: 'en', step: 'get_country', flowType: 'fill_info' as const, data: {} };
+      sessions.set(chatId, newSession);
+      session = newSession;
+      console.log(`[DEBUG] Session successfully CREATED for: ${chatId}`);
     } else {
       console.log(`[DEBUG] User clicked Country. Current Session:`, JSON.stringify({
         step: session.step,
@@ -875,33 +879,43 @@ bot.on('callback_query', async (query) => {
 
         const opt = COUNTRY_OPTIONS.find((o) => o.cb === query.data);
         if (opt) {
-          // Initialize Flow on Click: Ensure session exists and has all required fields
-          const selectedLang = session.lang || 'en';
+          // Force Creation: Do not just update the session. If sessions[chatId] is undefined, create it
+          const selectedLang = session?.lang || 'en';
           
-          // Set FlowType: Explicitly set flowType to 'fill_info' when country is selected
-          // Set Step: Ensure step is set to AWAITING_PROMOCODE before sending message
-          session.data = session.data || {};
-          session.data.country = opt.name;
-          session.step = 'AWAITING_PROMOCODE';
-          session.flowType = 'fill_info' as const;
-          session.lang = selectedLang;
+          // Verify Object Name: Use the same 'sessions' Map that the message listener checks
+          // Global Access: sessions is defined outside handlers, so it persists between clicks and messages
+          // Explicit Assignment: Write directly to the sessions object right before calling bot.sendMessage
+          const newSessionData = {
+            lang: selectedLang,
+            step: 'AWAITING_PROMOCODE',
+            flowType: 'fill_info' as const,
+            data: {
+              ...(session?.data || {}),
+              country: opt.name
+            }
+          };
           
-          // Force Session Creation: Save session BEFORE sending message
-          sessions.set(chatId, session);
+          // Force Session Creation: Direct assignment to sessions Map
+          sessions.set(chatId, newSessionData);
+          
+          // Log the Save: Add console.log immediately after the assignment
+          console.log(`[DEBUG] Session successfully SAVED for: ${chatId}`);
+          console.log(`[DEBUG] Session data:`, JSON.stringify({
+            step: newSessionData.step,
+            flowType: newSessionData.flowType,
+            lang: newSessionData.lang,
+            country: newSessionData.data.country
+          }));
           
           // Verify session was saved correctly
           const savedSession = sessions.get(chatId);
           console.log(`[DEBUG] Path 1: Country selected, moving to promo code. Country: ${opt.name}`);
-          console.log(`[DEBUG] Path 1: Session saved BEFORE message. Step: ${savedSession?.step}, FlowType: ${savedSession?.flowType}, Lang: ${savedSession?.lang}, Has data: ${!!savedSession?.data}`);
+          console.log(`[DEBUG] Path 1: Session verification. Step: ${savedSession?.step}, FlowType: ${savedSession?.flowType}, Lang: ${savedSession?.lang}, Has data: ${!!savedSession?.data}`);
           
           if (!savedSession || savedSession.step !== 'AWAITING_PROMOCODE' || savedSession.flowType !== 'fill_info') {
             console.error(`[ERROR] Path 1: Session not saved correctly! Re-saving...`);
-            sessions.set(chatId, {
-              lang: selectedLang,
-              step: 'AWAITING_PROMOCODE',
-              flowType: 'fill_info' as const,
-              data: { country: opt.name }
-            });
+            sessions.set(chatId, newSessionData);
+            console.log(`[DEBUG] Session successfully RE-SAVED for: ${chatId}`);
           }
 
           // Non-Empty String Check: Check translation directly before using
@@ -926,24 +940,10 @@ bot.on('callback_query', async (query) => {
           
           console.log(`[DEBUG] Path 1: Sending promo code prompt to user. Text length: ${promoPromptText.length}, Text preview: ${promoPromptText.substring(0, 50)}...`);
           
-          // Set Step: Ensure session is saved BEFORE sending the promo code message
+          // Explicit Assignment: Write directly to the sessions object right before calling bot.sendMessage
           // This ensures the session exists when the user types their promo code
-          // Initialize Flow on Click: Create complete session object with all required fields
-          // Match the Literal Types: flowType must be exactly 'fill_info' (Option 1); Option 2 uses 'link'
-          const finalSessionData = {
-            lang: selectedLang,
-            step: 'AWAITING_PROMOCODE',
-            flowType: 'fill_info' as const,
-            data: { country: opt.name }
-          };
-          sessions.set(chatId, finalSessionData);
-          
-          // Verify session was saved before sending message
-          const verifySession = sessions.get(chatId);
-          if (!verifySession || verifySession.step !== 'AWAITING_PROMOCODE' || verifySession.flowType !== 'fill_info') {
-            console.error(`[ERROR] Path 1: Session verification failed before sending message! Re-saving...`);
-            sessions.set(chatId, finalSessionData);
-          }
+          sessions.set(chatId, newSessionData);
+          console.log(`[DEBUG] Session successfully SAVED (before message) for: ${chatId}`);
           
           await bot.sendMessage(chatId, promoPromptText, {
             reply_markup: { inline_keyboard: [[{ text: backText, callback_data: 'back_to_main' }]] }
@@ -957,13 +957,8 @@ bot.on('callback_query', async (query) => {
           if (!finalSession || finalSession.step !== 'AWAITING_PROMOCODE' || finalSession.flowType !== 'fill_info') {
             console.error(`[ERROR] Path 1: Session was lost after sending message! Expected step: AWAITING_PROMOCODE, flowType: fill_info. Got step: ${finalSession?.step || 'none'}, flowType: ${finalSession?.flowType || 'none'}`);
             // Force Session Creation: Re-create session if it was lost (flowType: 'fill_info' = Option 1)
-            sessions.set(chatId, {
-              lang: selectedLang,
-              step: 'AWAITING_PROMOCODE',
-              flowType: 'fill_info' as const,
-              data: { country: opt.name }
-            });
-            console.log(`[ERROR] Path 1: Re-created session for chatId: ${chatId}`);
+            sessions.set(chatId, newSessionData);
+            console.log(`[DEBUG] Session successfully RE-SAVED (after message) for: ${chatId}`);
           }
         } else {
           console.error(`[DEBUG] Path 1: Country option not found for callback: ${query.data}`);
