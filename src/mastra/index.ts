@@ -898,7 +898,8 @@ bot.on('callback_query', async (query) => {
           // Force Session Creation: Direct assignment to sessions Map
           sessions.set(chatId, newSessionData);
           
-          // Log the Save: Add console.log immediately after the assignment
+          // Verification Log: Add console.log so we can see it in Render
+          console.log('SUCCESS: Session created with flowType fill_info');
           console.log(`[DEBUG] Session successfully SAVED for: ${chatId}`);
           console.log(`[DEBUG] Session data:`, JSON.stringify({
             step: newSessionData.step,
@@ -1095,7 +1096,7 @@ bot.on('callback_query', async (query) => {
 
   // Instant Activation (Via Link): send link first, then ask email
   if (query.data === 'instant_link') {
-    session.flowType = 'link';
+    session.flowType = 'link' as const;
     session.data = {};
     session.step = 'link_get_email';
     sessions.set(chatId, session);
@@ -1125,7 +1126,7 @@ bot.on('callback_query', async (query) => {
 
   // Fill Info option
   if (query.data === 'fill_info') {
-    session.flowType = 'fill_info';
+    session.flowType = 'fill_info' as const;
     session.step = 'get_full_name';
     session.data = {};
     sessions.set(chatId, session);
@@ -1342,22 +1343,25 @@ bot.on('message', async (msg) => {
   }
   
   // If session exists but no step, try to recover for AWAITING_PROMOCODE
-  if (!session.step) {
-    // Check if this might be a promo code message (user might have sent it right after country selection)
-    if (text && text.trim().length >= 4 && /^[A-Za-z0-9]+$/.test(text.trim())) {
-      console.log(`[DEBUG] Session missing step but looks like promo code. Attempting recovery...`);
-      // Initialize Flow on Click: Create session with AWAITING_PROMOCODE if it looks like user is entering promo code
-      session.step = 'AWAITING_PROMOCODE';
-      session.flowType = session.flowType || 'fill_info';
-      session.lang = session.lang || 'en';
-      session.data = session.data || {};
-      sessions.set(chatId, session);
-      console.log(`[DEBUG] Recovered session for promo code entry. Step: ${session.step}, FlowType: ${session.flowType}`);
-    } else {
-      console.log(`[DEBUG] Message ignored: session exists but has no step. ChatId: ${chatId}, Session data:`, JSON.stringify(session));
-      return;
+    if (!session.step) {
+      // Check if this might be a promo code message (user might have sent it right after country selection)
+      if (text && text.trim().length >= 4 && /^[A-Za-z0-9]+$/.test(text.trim())) {
+        console.log(`[DEBUG] Session missing step but looks like promo code. Attempting recovery...`);
+        // Initialize Flow on Click: Create session with AWAITING_PROMOCODE if it looks like user is entering promo code
+        const recoveredFlowType: 'fill_info' | 'link' = session.flowType === 'link' ? 'link' : 'fill_info';
+        sessions.set(chatId, {
+          lang: session.lang || 'en',
+          step: 'AWAITING_PROMOCODE',
+          flowType: recoveredFlowType,
+          data: session.data || {}
+        });
+        session = sessions.get(chatId)!;
+        console.log(`[DEBUG] Recovered session for promo code entry. Step: ${session.step}, FlowType: ${session.flowType}`);
+      } else {
+        console.log(`[DEBUG] Message ignored: session exists but has no step. ChatId: ${chatId}, Session data:`, JSON.stringify(session));
+        return;
+      }
     }
-  }
   // Allow contact when in get_phone; otherwise require text
   if (!text && !(session.step === 'get_phone' && hasContact)) {
     console.log(`[DEBUG] Message ignored: no text and not get_phone with contact. Step: ${session.step}, Has text: ${!!text}, Has contact: ${hasContact}`);
@@ -1477,12 +1481,39 @@ bot.on('message', async (msg) => {
     }
 
     case 'get_country':
+      // Initialize Option 1: Explicitly create the session if it's missing
+      if (!session.flowType) {
+        session.flowType = 'fill_info' as const;
+      }
+      session.data = session.data || {};
       session.data.country = text ?? '';
       session.step = 'AWAITING_PROMOCODE';
-      sessions.set(chatId, session);
-      await bot.sendMessage(chatId, safeMessage(t(chatId, 'countrySelectedPromoCode', 'Country selected! Now, please type your Promo Code to continue.'), 'Country selected! Now, please type your Promo Code to continue.'), {
-        reply_markup: { inline_keyboard: [[{ text: safeMessage(t(chatId, 'back', '🔙 Back'), '🔙 Back'), callback_data: 'back_to_main' }]] }
+      session.lang = session.lang || 'en';
+      
+      // Force Session Creation: Save session with all required fields
+      sessions.set(chatId, {
+        lang: session.lang || 'en',
+        step: 'AWAITING_PROMOCODE',
+        flowType: 'fill_info' as const,
+        data: { ...session.data, country: text ?? '' }
       });
+      
+      // Verification Log: Add console.log so we can see it in Render
+      console.log('SUCCESS: Session created with flowType fill_info');
+      console.log(`[DEBUG] Session successfully SAVED (typed country) for: ${chatId}`);
+      
+      const promoPromptText = safeMessage(t(chatId, 'countrySelectedPromoCode', 'Country selected! Now, please type your Promo Code to continue.'), 'Country selected! Now, please type your Promo Code to continue.');
+      const backText = safeMessage(t(chatId, 'back', '🔙 Back'), '🔙 Back');
+      
+      if (!promoPromptText || !backText) {
+        console.error(`[ERROR] Empty translation for promo prompt or back button`);
+        return;
+      }
+      
+      await bot.sendMessage(chatId, promoPromptText, {
+        reply_markup: { inline_keyboard: [[{ text: backText, callback_data: 'back_to_main' }]] }
+      });
+      console.log(`[DEBUG] Promo code prompt sent after user typed country: ${text}`);
       break;
 
     case 'get_promo_code':
