@@ -879,12 +879,11 @@ bot.on('callback_query', async (query) => {
 
         const opt = COUNTRY_OPTIONS.find((o) => o.cb === query.data);
         if (opt) {
-          // Force Creation: Do not just update the session. If sessions[chatId] is undefined, create it
+          // Initialize the Object: Before setting any properties, explicitly create the session
           const selectedLang = session?.lang || 'en';
           
-          // Verify Object Name: Use the same 'sessions' Map that the message listener checks
-          // Global Access: sessions is defined outside handlers, so it persists between clicks and messages
-          // Explicit Assignment: Write directly to the sessions object right before calling bot.sendMessage
+          // Global Variable Check: sessions is defined at the very top of the file (line 19) outside any functions
+          // Initialize the Object: Explicitly create the session object
           const newSessionData = {
             lang: selectedLang,
             step: 'AWAITING_PROMOCODE',
@@ -898,7 +897,8 @@ bot.on('callback_query', async (query) => {
           // Force Session Creation: Direct assignment to sessions Map
           sessions.set(chatId, newSessionData);
           
-          // Verification Log: Add console.log so we can see it in Render
+          // Logging: Add console.log immediately after setting it to confirm it's actually in memory
+          console.log('SESSION SAVED:', sessions.get(chatId));
           console.log('SUCCESS: Session created with flowType fill_info');
           console.log(`[DEBUG] Session successfully SAVED for: ${chatId}`);
           console.log(`[DEBUG] Session data:`, JSON.stringify({
