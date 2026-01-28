@@ -723,10 +723,20 @@ const translations: Record<string, Record<string, string>> = {
 };
 
 // Helper function to get translation
-const t = (chatId: number, key: string): string => {
+const t = (chatId: number, key: string, fallback?: string): string => {
   const session = sessions.get(chatId);
   const lang = session?.lang || 'en';
-  return translations[lang]?.[key] || translations.en[key] || '';
+  return translations[lang]?.[key] || translations.en[key] || fallback || `[Translation missing: ${key}]`;
+};
+
+// Helper to ensure message text is never empty
+const safeMessage = (text: string | undefined | null, fallback: string = 'Message'): string => {
+  const result = (text && text.trim()) || fallback;
+  if (!result || result.trim().length === 0) {
+    console.error('Error: safeMessage returned empty string, using fallback');
+    return fallback || 'Message';
+  }
+  return result;
 };
 
 // Validation functions
@@ -770,7 +780,7 @@ bot.onText(/\/start/, async (msg) => {
     data: {}
   });
 
-  const greeting = translations.en.welcomeGreeting + '\n\nChoose your language:';
+  const greeting = safeMessage(translations.en.welcomeGreeting + '\n\nChoose your language:', 'Welcome to 1xPartners!\n\nChoose your language:');
   await bot.sendMessage(chatId, greeting, {
     parse_mode: 'Markdown',
     reply_markup: {
@@ -802,13 +812,23 @@ bot.on('callback_query', async (query) => {
   // Country selection handler - MUST be first to answer immediately
   if (query.data?.startsWith('country_') && session.step === 'get_country') {
     // Add the Handshake: answer immediately when any country button is pressed
-    await bot.answerCallbackQuery(query.id);
+    try {
+      await bot.answerCallbackQuery(query.id);
+    } catch (_) {
+      // Ignore if already answered
+    }
 
     if (query.data === 'country_OTHER') {
       session.step = 'get_country'; // Keep same step for typing
       sessions.set(chatId, session);
-      await bot.sendMessage(chatId, t(chatId, 'typeCountry'), {
-        reply_markup: { inline_keyboard: [[{ text: t(chatId, 'back'), callback_data: 'back_to_main' }]] }
+      const typeCountryText = safeMessage(t(chatId, 'typeCountry', 'Please type your country:'), 'Please type your country:');
+      const backText = safeMessage(t(chatId, 'back', '🔙 Back'), '🔙 Back');
+      if (!typeCountryText || !backText) {
+        console.error('Error: Empty translation for typeCountry or back');
+        return;
+      }
+      await bot.sendMessage(chatId, typeCountryText, {
+        reply_markup: { inline_keyboard: [[{ text: backText, callback_data: 'back_to_main' }]] }
       });
       return;
     }
@@ -820,9 +840,20 @@ bot.on('callback_query', async (query) => {
       session.step = 'AWAITING_PROMOCODE';
       sessions.set(chatId, session);
 
-      // Ask for the Code: send message asking for promo code
-      await bot.sendMessage(chatId, t(chatId, 'countrySelectedPromoCode'), {
-        reply_markup: { inline_keyboard: [[{ text: t(chatId, 'back'), callback_data: 'back_to_main' }]] }
+      // Ask for the Code: send message asking for promo code with validation
+      const promoPromptText = safeMessage(
+        t(chatId, 'countrySelectedPromoCode', 'Country selected! Now, please type your Promo Code to continue.'),
+        'Country selected! Now, please type your Promo Code to continue.'
+      );
+      const backText = safeMessage(t(chatId, 'back', '🔙 Back'), '🔙 Back');
+      
+      if (!promoPromptText || !backText) {
+        console.error('Error: Attempted to send empty message after country selection');
+        return;
+      }
+      
+      await bot.sendMessage(chatId, promoPromptText, {
+        reply_markup: { inline_keyboard: [[{ text: backText, callback_data: 'back_to_main' }]] }
       });
     }
     return;
@@ -848,15 +879,15 @@ bot.on('callback_query', async (query) => {
     session.step = 'main_menu';
     sessions.set(chatId, session);
 
-    await bot.sendMessage(chatId, t(chatId, 'mainMenu'), {
+    await bot.sendMessage(chatId, safeMessage(t(chatId, 'mainMenu', '🌍 Welcome to 1XPartners!\n\nChoose an option:'), '🌍 Welcome to 1XPartners!\n\nChoose an option:'), {
       parse_mode: 'Markdown',
       reply_markup: {
         inline_keyboard: [
-          [{ text: t(chatId, 'becomePartner'), callback_data: 'become_partner' }],
-          [{ text: t(chatId, 'promoMarketing'), callback_data: 'promo_marketing' }],
-          [{ text: t(chatId, 'commissionPayouts'), callback_data: 'commission_payouts' }],
-          [{ text: t(chatId, 'downloadAndroid'), url: ANDROID_APP_URL }],
-          [{ text: t(chatId, 'premiumSupportCenter'), callback_data: 'vip_support' }]
+          [{ text: safeMessage(t(chatId, 'becomePartner', '💎 Become a Partner'), '💎 Become a Partner'), callback_data: 'become_partner' }],
+          [{ text: safeMessage(t(chatId, 'promoMarketing', '🛠 Promo & Marketing Materials'), '🛠 Promo & Marketing'), callback_data: 'promo_marketing' }],
+          [{ text: safeMessage(t(chatId, 'commissionPayouts', '💰 Commission & Payouts'), '💰 Commission & Payouts'), callback_data: 'commission_payouts' }],
+          [{ text: safeMessage(t(chatId, 'downloadAndroid', '📱 Download Android App'), '📱 Download Android App'), url: ANDROID_APP_URL }],
+          [{ text: safeMessage(t(chatId, 'premiumSupportCenter', '📞 Premium Support Center'), '📞 Premium Support'), callback_data: 'vip_support' }]
         ]
       }
     });
@@ -868,12 +899,12 @@ bot.on('callback_query', async (query) => {
     session.step = 'register_menu';
     sessions.set(chatId, session);
 
-    await bot.sendMessage(chatId, t(chatId, 'registerMenu'), {
+    await bot.sendMessage(chatId, safeMessage(t(chatId, 'registerMenu', 'Choose your registration method:'), 'Choose your registration method:'), {
       reply_markup: {
         inline_keyboard: [
-          [{ text: t(chatId, 'premiumManagedSetup'), callback_data: 'fill_info' }],
-          [{ text: t(chatId, 'optionAInstant'), callback_data: 'instant_link' }],
-          [{ text: t(chatId, 'back'), callback_data: 'back_to_main' }]
+          [{ text: safeMessage(t(chatId, 'premiumManagedSetup', '👨‍💼 Premium Managed Setup'), '👨‍💼 Premium Setup'), callback_data: 'fill_info' }],
+          [{ text: safeMessage(t(chatId, 'optionAInstant', '🚀 Instant Activation (Via Link)'), '🚀 Instant Activation'), callback_data: 'instant_link' }],
+          [{ text: safeMessage(t(chatId, 'back', '🔙 Back'), '🔙 Back'), callback_data: 'back_to_main' }]
         ]
       }
     });
@@ -882,7 +913,7 @@ bot.on('callback_query', async (query) => {
 
   // Promo & Marketing Materials
   if (query.data === 'promo_marketing') {
-    await bot.sendMessage(chatId, t(chatId, 'promoMarketingDesc'), {
+    await bot.sendMessage(chatId, safeMessage(t(chatId, 'promoMarketingDesc', 'Access high-converting banners and unique promo codes.'), 'Access high-converting banners and unique promo codes.'), {
       reply_markup: {
         inline_keyboard: [[{ text: t(chatId, 'back'), callback_data: 'back_to_main' }]]
       }
@@ -892,7 +923,7 @@ bot.on('callback_query', async (query) => {
 
   // Commission & Payouts
   if (query.data === 'commission_payouts') {
-    await bot.sendMessage(chatId, t(chatId, 'withdrawCommissionInfo'), {
+    await bot.sendMessage(chatId, safeMessage(t(chatId, 'withdrawCommissionInfo', 'Commission & Payout information'), 'Commission & Payout information'), {
       parse_mode: 'Markdown',
       reply_markup: {
         inline_keyboard: [[{ text: t(chatId, 'back'), callback_data: 'back_to_main' }]]
@@ -903,7 +934,7 @@ bot.on('callback_query', async (query) => {
 
   // Download Android App — send link + Back (url button is in main menu)
   if (query.data === 'download_android') {
-    await bot.sendMessage(chatId, t(chatId, 'downloadAndroid') + '\n\n' + ANDROID_APP_URL, {
+    await bot.sendMessage(chatId, safeMessage(t(chatId, 'downloadAndroid', '📱 Download Android App') + '\n\n' + ANDROID_APP_URL, '📱 Download Android App\n\n' + ANDROID_APP_URL), {
       reply_markup: {
         inline_keyboard: [[{ text: t(chatId, 'back'), callback_data: 'back_to_main' }]]
       }
@@ -916,12 +947,12 @@ bot.on('callback_query', async (query) => {
     session.step = 'support_menu';
     sessions.set(chatId, session);
 
-    await bot.sendMessage(chatId, t(chatId, 'supportMenu'), {
+    await bot.sendMessage(chatId, safeMessage(t(chatId, 'supportMenu', 'Support Menu'), 'Support Menu'), {
       reply_markup: {
         inline_keyboard: [
-          [{ text: t(chatId, 'twoFactorAuth'), callback_data: 'support_2fa' }],
-          [{ text: t(chatId, 'demoAccounts'), callback_data: 'support_demo' }],
-          [{ text: t(chatId, 'back'), callback_data: 'back_to_main' }]
+          [{ text: safeMessage(t(chatId, 'twoFactorAuth', '🔐 Two-Factor Authentication'), '🔐 2FA'), callback_data: 'support_2fa' }],
+          [{ text: safeMessage(t(chatId, 'demoAccounts', '🎮 Demo Accounts'), '🎮 Demo Accounts'), callback_data: 'support_demo' }],
+          [{ text: safeMessage(t(chatId, 'back', '🔙 Back'), '🔙 Back'), callback_data: 'back_to_main' }]
         ]
       }
     });
@@ -935,10 +966,24 @@ bot.on('callback_query', async (query) => {
     session.step = 'link_get_email';
     sessions.set(chatId, session);
 
+    if (!AFFILIATE_URL || AFFILIATE_URL.trim().length === 0) {
+      console.error('Error: AFFILIATE_URL is empty');
+      return;
+    }
     await bot.sendMessage(chatId, AFFILIATE_URL);
-    await bot.sendMessage(chatId, t(chatId, 'linkFlowEmail'), {
+    const linkFlowEmailText = safeMessage(t(chatId, 'linkFlowEmail', 'To finalize your activation, please provide your Email address.'), 'To finalize your activation, please provide your Email address.');
+    if (!linkFlowEmailText || linkFlowEmailText.trim().length === 0) {
+      console.error('Error: Attempted to send empty linkFlowEmail message');
+      return;
+    }
+    const backText = safeMessage(t(chatId, 'back', '🔙 Back'), '🔙 Back');
+    if (!backText) {
+      console.error('Error: Empty back button text');
+      return;
+    }
+    await bot.sendMessage(chatId, linkFlowEmailText, {
       reply_markup: {
-        inline_keyboard: [[{ text: t(chatId, 'back'), callback_data: 'back_to_main' }]]
+        inline_keyboard: [[{ text: backText, callback_data: 'back_to_main' }]]
       }
     });
     return;
@@ -951,7 +996,7 @@ bot.on('callback_query', async (query) => {
     session.data = {};
     sessions.set(chatId, session);
 
-    await bot.sendMessage(chatId, t(chatId, 'enterFullName'), {
+    await bot.sendMessage(chatId, safeMessage(t(chatId, 'enterFullName', 'Please enter your full name:'), 'Please enter your full name:'), {
       reply_markup: {
         inline_keyboard: [[{ text: t(chatId, 'back'), callback_data: 'back_to_main' }]]
       }
@@ -964,11 +1009,11 @@ bot.on('callback_query', async (query) => {
     session.step = 'support_menu';
     sessions.set(chatId, session);
 
-    await bot.sendMessage(chatId, t(chatId, 'supportMenu'), {
+    await bot.sendMessage(chatId, safeMessage(t(chatId, 'supportMenu', 'Support Menu'), 'Support Menu'), {
       reply_markup: {
         inline_keyboard: [
           [{ text: t(chatId, 'twoFactorAuth'), callback_data: 'support_2fa' }],
-          [{ text: t(chatId, 'withdrawCommission'), callback_data: 'support_withdraw' }],
+          [{ text: safeMessage(t(chatId, 'withdrawCommission', '💰 Withdraw Commission'), '💰 Withdraw'), callback_data: 'support_withdraw' }],
           [{ text: t(chatId, 'demoAccounts'), callback_data: 'support_demo' }],
           [{ text: t(chatId, 'back'), callback_data: 'back_to_main' }]
         ]
@@ -979,12 +1024,12 @@ bot.on('callback_query', async (query) => {
 
   // Support: 2FA submenu
   if (query.data === 'support_2fa') {
-    await bot.sendMessage(chatId, t(chatId, 'twoFactorAuth'), {
+    await bot.sendMessage(chatId, safeMessage(t(chatId, 'twoFactorAuth', 'Two-Factor Authentication'), 'Two-Factor Authentication'), {
       reply_markup: {
         inline_keyboard: [
-          [{ text: t(chatId, 'activate2FA'), callback_data: 'support_2fa_activate' }],
-          [{ text: t(chatId, 'deactivate2FA'), callback_data: 'support_2fa_deactivate' }],
-          [{ text: t(chatId, 'back'), callback_data: 'support' }]
+          [{ text: safeMessage(t(chatId, 'activate2FA', '✅ Activate 2FA'), '✅ Activate'), callback_data: 'support_2fa_activate' }],
+          [{ text: safeMessage(t(chatId, 'deactivate2FA', '❌ Deactivate 2FA'), '❌ Deactivate'), callback_data: 'support_2fa_deactivate' }],
+          [{ text: safeMessage(t(chatId, 'back', '🔙 Back'), '🔙 Back'), callback_data: 'support' }]
         ]
       }
     });
@@ -993,10 +1038,10 @@ bot.on('callback_query', async (query) => {
 
   // Support: Activate 2FA
   if (query.data === 'support_2fa_activate') {
-    await bot.sendMessage(chatId, t(chatId, 'activate2FAInfo'), {
+    await bot.sendMessage(chatId, safeMessage(t(chatId, 'activate2FAInfo', 'Activate 2FA information'), 'Activate 2FA information'), {
       reply_markup: {
         inline_keyboard: [
-          [{ text: t(chatId, 'back'), callback_data: 'support_2fa' }]
+          [{ text: safeMessage(t(chatId, 'back', '🔙 Back'), '🔙 Back'), callback_data: 'support_2fa' }]
         ]
       }
     });
@@ -1005,10 +1050,10 @@ bot.on('callback_query', async (query) => {
 
   // Support: Deactivate 2FA
   if (query.data === 'support_2fa_deactivate') {
-    await bot.sendMessage(chatId, t(chatId, 'deactivate2FAInfo'), {
+    await bot.sendMessage(chatId, safeMessage(t(chatId, 'deactivate2FAInfo', 'Deactivate 2FA information'), 'Deactivate 2FA information'), {
       reply_markup: {
         inline_keyboard: [
-          [{ text: t(chatId, 'back'), callback_data: 'support_2fa' }]
+          [{ text: safeMessage(t(chatId, 'back', '🔙 Back'), '🔙 Back'), callback_data: 'support_2fa' }]
         ]
       }
     });
@@ -1017,11 +1062,11 @@ bot.on('callback_query', async (query) => {
 
   // Support: Withdraw Commission
   if (query.data === 'support_withdraw') {
-    await bot.sendMessage(chatId, t(chatId, 'withdrawCommissionInfo'), {
+    await bot.sendMessage(chatId, safeMessage(t(chatId, 'withdrawCommissionInfo', 'Commission & Payout information'), 'Commission & Payout information'), {
       parse_mode: 'Markdown',
       reply_markup: {
         inline_keyboard: [
-          [{ text: t(chatId, 'back'), callback_data: 'support' }]
+          [{ text: safeMessage(t(chatId, 'back', '🔙 Back'), '🔙 Back'), callback_data: 'support' }]
         ]
       }
     });
@@ -1030,11 +1075,11 @@ bot.on('callback_query', async (query) => {
 
   // Support: Demo Accounts
   if (query.data === 'support_demo') {
-    await bot.sendMessage(chatId, t(chatId, 'demoAccountsInfo'), {
+    await bot.sendMessage(chatId, safeMessage(t(chatId, 'demoAccountsInfo', 'Demo Accounts information'), 'Demo Accounts information'), {
       parse_mode: 'Markdown',
       reply_markup: {
         inline_keyboard: [
-          [{ text: t(chatId, 'back'), callback_data: 'support' }]
+          [{ text: safeMessage(t(chatId, 'back', '🔙 Back'), '🔙 Back'), callback_data: 'support' }]
         ]
       }
     });
@@ -1057,8 +1102,8 @@ bot.on('callback_query', async (query) => {
     const adminMessage = sid.flowType === 'link'
       ? `👤 New Lead: [${displayName.replace(/[[\]]/g, '')}](tg://user?id=${uid})\n🆔 User ID: ${uid}\n👤 Username: ${username}\n📧 Email: ${d.email}\n📱 Phone: —\n🔑 Promo Code: ${d.promoCode}\n🗺 Language: ${langLabel}`
       : `👤 New Lead: [${displayName.replace(/[[\]]/g, '')}](tg://user?id=${uid})\n🆔 User ID: ${uid}\n👤 Username: ${username}\n📧 Email: ${d.email}\n📱 Phone: ${d.phone || '—'}\n🔑 Promo Code: ${d.promoCode}\n🗺 Language: ${langLabel}`;
-    await bot.sendMessage(MY_ADMIN_ID, adminMessage, { parse_mode: 'Markdown' });
-    await bot.sendMessage(chatId, t(chatId, 'thankYou'));
+    await bot.sendMessage(MY_ADMIN_ID, safeMessage(adminMessage, 'New registration received'), { parse_mode: 'Markdown' });
+    await bot.sendMessage(chatId, safeMessage(t(chatId, 'thankYou', '✅ Thank you! Your registration has been submitted.'), '✅ Thank you!'));
     sessions.delete(chatId);
     return;
   }
@@ -1074,28 +1119,28 @@ bot.on('callback_query', async (query) => {
     const d = sid.data;
     const langLabel = sid.lang.toUpperCase();
     const adminMessage = `👤 New Lead: [${displayName.replace(/[[\]]/g, '')}](tg://user?id=${uid})\n🆔 User ID: ${uid}\n👤 Username: ${username}\n📧 Email: ${d.email}\n🔑 Promo Code: ${d.promoCode}\n🗺 Language: ${langLabel}`;
-    await bot.sendMessage(MY_ADMIN_ID, adminMessage, { parse_mode: 'Markdown' });
-    await bot.sendMessage(chatId, t(chatId, 'activationSent'));
+    await bot.sendMessage(MY_ADMIN_ID, safeMessage(adminMessage, 'New activation request'), { parse_mode: 'Markdown' });
+    await bot.sendMessage(chatId, safeMessage(t(chatId, 'activationSent', '🚀 Activation request sent to management.'), '🚀 Activation request sent.'));
     sessions.delete(chatId);
     return;
   }
 
   // Cancel / Edit (Option 2 — Via Link): cancel message + main menu
   if (query.data === 'cancel_activation') {
-    await bot.sendMessage(chatId, t(chatId, 'activationCancelled'));
+    await bot.sendMessage(chatId, safeMessage(t(chatId, 'activationCancelled', '❌ Activation cancelled.'), '❌ Activation cancelled.'));
     session.step = 'main_menu';
     session.flowType = undefined;
     session.data = {};
     sessions.set(chatId, session);
-    await bot.sendMessage(chatId, t(chatId, 'mainMenu'), {
+    await bot.sendMessage(chatId, safeMessage(t(chatId, 'mainMenu', '🌍 Welcome to 1XPartners!\n\nChoose an option:'), '🌍 Welcome to 1XPartners!\n\nChoose an option:'), {
       parse_mode: 'Markdown',
       reply_markup: {
         inline_keyboard: [
-          [{ text: t(chatId, 'becomePartner'), callback_data: 'become_partner' }],
-          [{ text: t(chatId, 'promoMarketing'), callback_data: 'promo_marketing' }],
-          [{ text: t(chatId, 'commissionPayouts'), callback_data: 'commission_payouts' }],
-          [{ text: t(chatId, 'downloadAndroid'), url: ANDROID_APP_URL }],
-          [{ text: t(chatId, 'premiumSupportCenter'), callback_data: 'vip_support' }]
+          [{ text: safeMessage(t(chatId, 'becomePartner', '💎 Become a Partner'), '💎 Become a Partner'), callback_data: 'become_partner' }],
+          [{ text: safeMessage(t(chatId, 'promoMarketing', '🛠 Promo & Marketing Materials'), '🛠 Promo & Marketing'), callback_data: 'promo_marketing' }],
+          [{ text: safeMessage(t(chatId, 'commissionPayouts', '💰 Commission & Payouts'), '💰 Commission & Payouts'), callback_data: 'commission_payouts' }],
+          [{ text: safeMessage(t(chatId, 'downloadAndroid', '📱 Download Android App'), '📱 Download Android App'), url: ANDROID_APP_URL }],
+          [{ text: safeMessage(t(chatId, 'premiumSupportCenter', '📞 Premium Support Center'), '📞 Premium Support'), callback_data: 'vip_support' }]
         ]
       }
     });
@@ -1109,15 +1154,15 @@ bot.on('callback_query', async (query) => {
     session.data = {};
     sessions.set(chatId, session);
 
-    await bot.sendMessage(chatId, t(chatId, 'mainMenu'), {
+    await bot.sendMessage(chatId, safeMessage(t(chatId, 'mainMenu', '🌍 Welcome to 1XPartners!\n\nChoose an option:'), '🌍 Welcome to 1XPartners!\n\nChoose an option:'), {
       parse_mode: 'Markdown',
       reply_markup: {
         inline_keyboard: [
-          [{ text: t(chatId, 'becomePartner'), callback_data: 'become_partner' }],
-          [{ text: t(chatId, 'promoMarketing'), callback_data: 'promo_marketing' }],
-          [{ text: t(chatId, 'commissionPayouts'), callback_data: 'commission_payouts' }],
-          [{ text: t(chatId, 'downloadAndroid'), url: ANDROID_APP_URL }],
-          [{ text: t(chatId, 'premiumSupportCenter'), callback_data: 'vip_support' }]
+          [{ text: safeMessage(t(chatId, 'becomePartner', '💎 Become a Partner'), '💎 Become a Partner'), callback_data: 'become_partner' }],
+          [{ text: safeMessage(t(chatId, 'promoMarketing', '🛠 Promo & Marketing Materials'), '🛠 Promo & Marketing'), callback_data: 'promo_marketing' }],
+          [{ text: safeMessage(t(chatId, 'commissionPayouts', '💰 Commission & Payouts'), '💰 Commission & Payouts'), callback_data: 'commission_payouts' }],
+          [{ text: safeMessage(t(chatId, 'downloadAndroid', '📱 Download Android App'), '📱 Download Android App'), url: ANDROID_APP_URL }],
+          [{ text: safeMessage(t(chatId, 'premiumSupportCenter', '📞 Premium Support Center'), '📞 Premium Support'), callback_data: 'vip_support' }]
         ]
       }
     });
@@ -1131,15 +1176,15 @@ bot.on('callback_query', async (query) => {
     session.data = {};
     sessions.set(chatId, session);
 
-    await bot.sendMessage(chatId, t(chatId, 'mainMenu'), {
+    await bot.sendMessage(chatId, safeMessage(t(chatId, 'mainMenu', '🌍 Welcome to 1XPartners!\n\nChoose an option:'), '🌍 Welcome to 1XPartners!\n\nChoose an option:'), {
       parse_mode: 'Markdown',
       reply_markup: {
         inline_keyboard: [
-          [{ text: t(chatId, 'becomePartner'), callback_data: 'become_partner' }],
-          [{ text: t(chatId, 'promoMarketing'), callback_data: 'promo_marketing' }],
-          [{ text: t(chatId, 'commissionPayouts'), callback_data: 'commission_payouts' }],
-          [{ text: t(chatId, 'downloadAndroid'), url: ANDROID_APP_URL }],
-          [{ text: t(chatId, 'premiumSupportCenter'), callback_data: 'vip_support' }]
+          [{ text: safeMessage(t(chatId, 'becomePartner', '💎 Become a Partner'), '💎 Become a Partner'), callback_data: 'become_partner' }],
+          [{ text: safeMessage(t(chatId, 'promoMarketing', '🛠 Promo & Marketing Materials'), '🛠 Promo & Marketing'), callback_data: 'promo_marketing' }],
+          [{ text: safeMessage(t(chatId, 'commissionPayouts', '💰 Commission & Payouts'), '💰 Commission & Payouts'), callback_data: 'commission_payouts' }],
+          [{ text: safeMessage(t(chatId, 'downloadAndroid', '📱 Download Android App'), '📱 Download Android App'), url: ANDROID_APP_URL }],
+          [{ text: safeMessage(t(chatId, 'premiumSupportCenter', '📞 Premium Support Center'), '📞 Premium Support'), callback_data: 'vip_support' }]
         ]
       }
     });
@@ -1167,25 +1212,25 @@ bot.on('message', async (msg) => {
     session.step = 'review';
     sessions.set(chatId, session);
     if (isLink) {
-      const body = t(chatId, 'verifyRegistrationDetails') + '\n\n*Email:* ' + d.email + '\n*Promo Code:* ' + d.promoCode;
+      const body = safeMessage(t(chatId, 'verifyRegistrationDetails', 'Verify your registration details:') + '\n\n*Email:* ' + (d.email || '—') + '\n*Promo Code:* ' + (d.promoCode || '—'), 'Verify your registration details');
       return bot.sendMessage(chatId, body, {
         parse_mode: 'Markdown',
         reply_markup: {
           inline_keyboard: [
-            [{ text: t(chatId, 'confirmActivation'), callback_data: 'confirm_activation' }],
-            [{ text: t(chatId, 'cancelEdit'), callback_data: 'cancel_activation' }]
+            [{ text: safeMessage(t(chatId, 'confirmActivation', '✅ Confirm Activation'), '✅ Confirm'), callback_data: 'confirm_activation' }],
+            [{ text: safeMessage(t(chatId, 'cancelEdit', '❌ Cancel / Edit'), '❌ Cancel'), callback_data: 'cancel_activation' }]
           ]
         }
       });
     }
-    const summary = `*Full Name:* ${d.fullName}\n*Email:* ${d.email}\n*Phone:* ${d.phone}\n*Country:* ${d.country}\n*Promo Code:* ${d.promoCode}`;
-    const body = t(chatId, 'reviewTitle') + '\n\n' + summary;
+    const summary = `*Full Name:* ${d.fullName || '—'}\n*Email:* ${d.email || '—'}\n*Phone:* ${d.phone || '—'}\n*Country:* ${d.country || '—'}\n*Promo Code:* ${d.promoCode || '—'}`;
+    const body = safeMessage(t(chatId, 'reviewTitle', 'Please review your information:') + '\n\n' + summary, 'Please review your information');
     return bot.sendMessage(chatId, body, {
       parse_mode: 'Markdown',
       reply_markup: {
         inline_keyboard: [
-          [{ text: t(chatId, 'confirmDetails'), callback_data: 'confirm_details' }],
-          [{ text: t(chatId, 'startOver'), callback_data: 'start_over' }]
+          [{ text: safeMessage(t(chatId, 'confirmDetails', '✅ Confirm Details'), '✅ Confirm'), callback_data: 'confirm_details' }],
+          [{ text: safeMessage(t(chatId, 'startOver', '❌ Start Over'), '❌ Start Over'), callback_data: 'start_over' }]
         ]
       }
     });
@@ -1197,22 +1242,22 @@ bot.on('message', async (msg) => {
       session.data.fullName = text ?? '';
       session.step = 'get_email';
       sessions.set(chatId, session);
-      await bot.sendMessage(chatId, t(chatId, 'enterEmail'), {
-        reply_markup: { inline_keyboard: [[{ text: t(chatId, 'back'), callback_data: 'back_to_main' }]] }
+      await bot.sendMessage(chatId, safeMessage(t(chatId, 'enterEmail', 'Please enter your email:'), 'Please enter your email:'), {
+        reply_markup: { inline_keyboard: [[{ text: safeMessage(t(chatId, 'back', '🔙 Back'), '🔙 Back'), callback_data: 'back_to_main' }]] }
       });
       break;
 
     case 'get_email':
       if (!isValidEmail(text ?? '')) {
-        await bot.sendMessage(chatId, t(chatId, 'invalidEmail'), {
-          reply_markup: { inline_keyboard: [[{ text: t(chatId, 'back'), callback_data: 'back_to_main' }]] }
+        await bot.sendMessage(chatId, safeMessage(t(chatId, 'invalidEmail', '❌ Invalid email format. Please try again:'), '❌ Invalid email format. Please try again:'), {
+          reply_markup: { inline_keyboard: [[{ text: safeMessage(t(chatId, 'back', '🔙 Back'), '🔙 Back'), callback_data: 'back_to_main' }]] }
         });
         return;
       }
       session.data.email = text ?? '';
       session.step = 'get_phone';
       sessions.set(chatId, session);
-      await bot.sendMessage(chatId, t(chatId, 'enterPhone'), {
+      await bot.sendMessage(chatId, safeMessage(t(chatId, 'enterPhone', 'Please enter your phone number:'), 'Please enter your phone number:'), {
         reply_markup: {
           keyboard: [
             [{ text: t(chatId, 'shareContact'), request_contact: true }],
@@ -1230,7 +1275,7 @@ bot.on('message', async (msg) => {
         session.flowType = undefined;
         session.data = {};
         sessions.set(chatId, session);
-        await bot.sendMessage(chatId, t(chatId, 'mainMenu'), {
+        await bot.sendMessage(chatId, safeMessage(t(chatId, 'mainMenu', '🌍 Welcome to 1XPartners!\n\nChoose an option:'), '🌍 Welcome to 1XPartners!\n\nChoose an option:'), {
           parse_mode: 'Markdown',
           reply_markup: { remove_keyboard: true }
         });
@@ -1257,7 +1302,7 @@ bot.on('message', async (msg) => {
         COUNTRY_OPTIONS.slice(3, 6).map((o) => ({ text: o.name, callback_data: o.cb })),
         [{ text: t(chatId, 'back'), callback_data: 'back_to_main' }]
       ];
-      await bot.sendMessage(chatId, t(chatId, 'enterCountry'), {
+      await bot.sendMessage(chatId, safeMessage(t(chatId, 'enterCountry', 'Please select your country:'), 'Please select your country:'), {
         reply_markup: { remove_keyboard: true }
       });
       await bot.sendMessage(chatId, '\u200B', {
@@ -1270,8 +1315,8 @@ bot.on('message', async (msg) => {
       session.data.country = text ?? '';
       session.step = 'AWAITING_PROMOCODE';
       sessions.set(chatId, session);
-      await bot.sendMessage(chatId, t(chatId, 'countrySelectedPromoCode'), {
-        reply_markup: { inline_keyboard: [[{ text: t(chatId, 'back'), callback_data: 'back_to_main' }]] }
+      await bot.sendMessage(chatId, safeMessage(t(chatId, 'countrySelectedPromoCode', 'Country selected! Now, please type your Promo Code to continue.'), 'Country selected! Now, please type your Promo Code to continue.'), {
+        reply_markup: { inline_keyboard: [[{ text: safeMessage(t(chatId, 'back', '🔙 Back'), '🔙 Back'), callback_data: 'back_to_main' }]] }
       });
       break;
 
@@ -1279,16 +1324,28 @@ bot.on('message', async (msg) => {
     case 'AWAITING_PROMOCODE':
       // Validation logic: accept only the accepted promo code
       if (!text || text.trim().length === 0 || text.startsWith('/')) {
-        await bot.sendMessage(chatId, t(chatId, 'excellentPromoCodeContinue'), {
-          reply_markup: { inline_keyboard: [[{ text: t(chatId, 'back'), callback_data: 'back_to_main' }]] }
+        const reminderText = safeMessage(t(chatId, 'excellentPromoCodeContinue', 'Excellent! Please now type your Promo Code to continue.'), 'Excellent! Please now type your Promo Code to continue.');
+        const backText = safeMessage(t(chatId, 'back', '🔙 Back'), '🔙 Back');
+        if (!reminderText || !backText) {
+          console.error('Error: Attempted to send empty message in AWAITING_PROMOCODE reminder');
+          return;
+        }
+        await bot.sendMessage(chatId, reminderText, {
+          reply_markup: { inline_keyboard: [[{ text: backText, callback_data: 'back_to_main' }]] }
         });
         return;
       }
       const code = (text ?? '').trim();
       if (code.toUpperCase() !== ACCEPTED_PROMO_CODE) {
         // Wrong code: send error and keep state as AWAITING_PROMOCODE
-        await bot.sendMessage(chatId, t(chatId, 'incorrectPromoCodeTryAgain'), {
-          reply_markup: { inline_keyboard: [[{ text: t(chatId, 'back'), callback_data: 'back_to_main' }]] }
+        const errorText = safeMessage(t(chatId, 'incorrectPromoCodeTryAgain', '❌ Incorrect Promo Code. Please try again.'), '❌ Incorrect Promo Code. Please try again.');
+        const backText = safeMessage(t(chatId, 'back', '🔙 Back'), '🔙 Back');
+        if (!errorText || !backText) {
+          console.error('Error: Attempted to send empty message in AWAITING_PROMOCODE error');
+          return;
+        }
+        await bot.sendMessage(chatId, errorText, {
+          reply_markup: { inline_keyboard: [[{ text: backText, callback_data: 'back_to_main' }]] }
         });
         return;
       }
@@ -1300,23 +1357,23 @@ bot.on('message', async (msg) => {
 
     case 'link_get_email':
       if (!isValidEmail(text ?? '')) {
-        await bot.sendMessage(chatId, t(chatId, 'invalidEmail'), {
-          reply_markup: { inline_keyboard: [[{ text: t(chatId, 'back'), callback_data: 'back_to_main' }]] }
+        await bot.sendMessage(chatId, safeMessage(t(chatId, 'invalidEmail', '❌ Invalid email format. Please try again:'), '❌ Invalid email format. Please try again:'), {
+          reply_markup: { inline_keyboard: [[{ text: safeMessage(t(chatId, 'back', '🔙 Back'), '🔙 Back'), callback_data: 'back_to_main' }]] }
         });
         return;
       }
       session.data.email = text ?? '';
       session.step = 'link_get_promo_code';
       sessions.set(chatId, session);
-      await bot.sendMessage(chatId, t(chatId, 'linkFlowPromo'), {
-        reply_markup: { inline_keyboard: [[{ text: t(chatId, 'back'), callback_data: 'back_to_main' }]] }
+      await bot.sendMessage(chatId, safeMessage(t(chatId, 'linkFlowPromo', 'Enter your desired promo code (Latin letters/numbers, min 4 chars).'), 'Enter your desired promo code (Latin letters/numbers, min 4 chars).'), {
+        reply_markup: { inline_keyboard: [[{ text: safeMessage(t(chatId, 'back', '🔙 Back'), '🔙 Back'), callback_data: 'back_to_main' }]] }
       });
       break;
 
     case 'link_get_promo_code':
       if (!isValidPromoCode(text ?? '')) {
-        await bot.sendMessage(chatId, t(chatId, 'invalidPromoCode'), {
-          reply_markup: { inline_keyboard: [[{ text: t(chatId, 'back'), callback_data: 'back_to_main' }]] }
+        await bot.sendMessage(chatId, safeMessage(t(chatId, 'invalidPromoCode', '❌ Invalid promo code. Please try again:'), '❌ Invalid promo code. Please try again:'), {
+          reply_markup: { inline_keyboard: [[{ text: safeMessage(t(chatId, 'back', '🔙 Back'), '🔙 Back'), callback_data: 'back_to_main' }]] }
         });
         return;
       }
