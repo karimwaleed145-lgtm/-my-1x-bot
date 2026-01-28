@@ -810,8 +810,9 @@ bot.on('callback_query', async (query) => {
   }
 
   // Country selection handler - MUST be first to answer immediately
+  // This handler is ONLY for Option 1 (fill_info flow)
   if (query.data?.startsWith('country_')) {
-    // End the Spinner: answer immediately when any country button is pressed (BEFORE any other logic)
+    // Explicit Handshake: answer immediately when any country button is pressed (BEFORE any other logic)
     try {
       await bot.answerCallbackQuery(query.id);
     } catch (err) {
@@ -819,9 +820,10 @@ bot.on('callback_query', async (query) => {
       // Continue even if answer fails
     }
 
-    // Only process if user is in get_country step
-    if (session.step === 'get_country') {
-      console.log(`[DEBUG] Country button clicked: ${query.data}, Current step: ${session.step}, FlowType: ${session.flowType || 'none'}`);
+    // Check Callback Data: Only process Option 1 (fill_info) country selections
+    // Option 2 (link) doesn't use country selection, so we only handle fill_info flow
+    if (session.step === 'get_country' && session.flowType === 'fill_info') {
+      console.log(`[DEBUG] Path 1: Country button clicked for Option 1. Callback: ${query.data}, Step: ${session.step}, FlowType: ${session.flowType}`);
 
       if (query.data === 'country_OTHER') {
         session.step = 'get_country'; // Keep same step for typing
@@ -840,35 +842,35 @@ bot.on('callback_query', async (query) => {
 
       const opt = COUNTRY_OPTIONS.find((o) => o.cb === query.data);
       if (opt) {
-        // Force State Change: Explicitly set the user's state to AWAITING_PROMOCODE
+        // Force State Change: Explicitly set the user's state to AWAITING_PROMOCODE for Option 1
         session.data.country = opt.name;
         session.step = 'AWAITING_PROMOCODE';
         sessions.set(chatId, session);
         
-        console.log(`[DEBUG] User transitioned to PROMO state for Option 1. Country: ${opt.name}, New step: ${session.step}, FlowType: ${session.flowType || 'none'}`);
+        console.log(`[DEBUG] Path 1: Country selected, moving to promo code. Country: ${opt.name}, New step: ${session.step}, FlowType: ${session.flowType}`);
 
-        // Ask for the Code: send message asking for promo code with validation
+        // Verify Promo Prompt: Use the exact same variable as Option 2 to ensure consistency
         const promoPromptText = safeMessage(
           t(chatId, 'countrySelectedPromoCode', 'Country selected! Now, please type your Promo Code to continue.'),
           'Country selected! Now, please type your Promo Code to continue.'
         );
         const backText = safeMessage(t(chatId, 'back', '🔙 Back'), '🔙 Back');
         
-        if (!promoPromptText || !backText) {
-          console.error('Error: Attempted to send empty message after country selection');
+        if (!promoPromptText || !backText || promoPromptText.trim().length === 0) {
+          console.error(`[DEBUG] Error: Attempted to send empty message after country selection. Promo text length: ${promoPromptText?.length || 0}, Back text length: ${backText?.length || 0}`);
           return;
         }
         
-        console.log(`[DEBUG] Sending promo code prompt to user. Text length: ${promoPromptText.length}`);
+        console.log(`[DEBUG] Path 1: Sending promo code prompt to user. Text length: ${promoPromptText.length}, Text preview: ${promoPromptText.substring(0, 50)}...`);
         await bot.sendMessage(chatId, promoPromptText, {
           reply_markup: { inline_keyboard: [[{ text: backText, callback_data: 'back_to_main' }]] }
         });
-        console.log(`[DEBUG] Promo code prompt sent successfully`);
+        console.log(`[DEBUG] Path 1: Promo code prompt sent successfully for Option 1`);
       } else {
-        console.error(`[DEBUG] Country option not found for callback: ${query.data}`);
+        console.error(`[DEBUG] Path 1: Country option not found for callback: ${query.data}`);
       }
     } else {
-      console.log(`[DEBUG] Country button clicked but user not in get_country step. Current step: ${session.step}`);
+      console.log(`[DEBUG] Country button clicked but conditions not met. Step: ${session.step}, FlowType: ${session.flowType || 'none'}, Expected: step=get_country AND flowType=fill_info`);
     }
     return;
   }
@@ -1329,6 +1331,7 @@ bot.on('message', async (msg) => {
       session.data.phone = phone.trim();
       session.step = 'get_country';
       sessions.set(chatId, session);
+      console.log(`[DEBUG] Path 1: Reached get_country step. FlowType: ${session.flowType || 'none'}, Phone: ${phone.substring(0, 5)}...`);
       const countryRows = [
         COUNTRY_OPTIONS.slice(0, 3).map((o) => ({ text: o.name, callback_data: o.cb })),
         COUNTRY_OPTIONS.slice(3, 6).map((o) => ({ text: o.name, callback_data: o.cb })),
