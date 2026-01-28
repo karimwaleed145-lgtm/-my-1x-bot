@@ -1244,7 +1244,10 @@ bot.on('message', async (msg) => {
 
 // HTTP server for Render port scan / health check (skip when PORT not set, e.g. local run)
 app.get('/', (_req, res) => res.send('ok'));
-app.get('/health', (_req, res) => res.send('OK'));
+app.get('/health', (_req, res) => {
+  res.set('Content-Type', 'text/plain');
+  res.status(200).send('OK');
+});
 
 if (process.env.PORT) {
   try {
