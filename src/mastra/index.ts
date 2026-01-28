@@ -56,6 +56,7 @@ const translations: Record<string, Record<string, string>> = {
     enterPhone: "Please enter your phone number:",
     enterCountry: "Please enter your country:",
     enterPromoCode: "Please enter your desired promo code (Latin letters and numbers only, minimum 4 characters):",
+    excellentPromoCode: "Excellent! Please now type your Promo Code to complete your registration.",
     invalidPromoCode: "❌ Invalid promo code. Must be at least 4 characters, Latin letters and numbers only. Please try again:",
     invalidEmail: "❌ Invalid email format. Please try again:",
     thankYou: "✅ Thank you! Your registration has been submitted. We will contact you soon.",
@@ -105,6 +106,7 @@ const translations: Record<string, Record<string, string>> = {
     enterPhone: "Пожалуйста, введите ваш номер телефона:",
     enterCountry: "Пожалуйста, введите вашу страну:",
     enterPromoCode: "Пожалуйста, введите желаемый промокод (только латинские буквы и цифры, минимум 4 символа):",
+    excellentPromoCode: "Отлично! Теперь введите ваш промокод, чтобы завершить регистрацию.",
     invalidPromoCode: "❌ Неверный промокод. Должен быть минимум 4 символа, только латинские буквы и цифры. Попробуйте снова:",
     invalidEmail: "❌ Неверный формат email. Попробуйте снова:",
     thankYou: "✅ Спасибо! Ваша регистрация отправлена. Мы свяжемся с вами в ближайшее время.",
@@ -154,6 +156,7 @@ const translations: Record<string, Record<string, string>> = {
     enterPhone: "Lütfen telefon numaranızı girin:",
     enterCountry: "Lütfen ülkenizi girin:",
     enterPromoCode: "Lütfen istediğiniz promosyon kodunu girin (sadece Latin harfleri ve rakamlar, minimum 4 karakter):",
+    excellentPromoCode: "Harika! Kaydınızı tamamlamak için lütfen Promo Kodunuzu yazın.",
     invalidPromoCode: "❌ Geçersiz promosyon kodu. Minimum 4 karakter, sadece Latin harfleri ve rakamlar olmalıdır. Lütfen tekrar deneyin:",
     invalidEmail: "❌ Geçersiz e-posta formatı. Lütfen tekrar deneyin:",
     thankYou: "✅ Teşekkürler! Kaydınız gönderildi. Yakında sizinle iletişime geçeceğiz.",
@@ -203,6 +206,7 @@ const translations: Record<string, Record<string, string>> = {
     enterPhone: "Por favor ingrese su número de teléfono:",
     enterCountry: "Por favor ingrese su país:",
     enterPromoCode: "Por favor ingrese su código promocional deseado (solo letras latinas y números, mínimo 4 caracteres):",
+    excellentPromoCode: "¡Excelente! Por favor escriba su Código Promocional para completar su registro.",
     invalidPromoCode: "❌ Código promocional inválido. Debe tener mínimo 4 caracteres, solo letras latinas y números. Por favor intente de nuevo:",
     invalidEmail: "❌ Formato de correo electrónico inválido. Por favor intente de nuevo:",
     thankYou: "✅ ¡Gracias! Su registro ha sido enviado. Nos pondremos en contacto pronto.",
@@ -252,6 +256,7 @@ const translations: Record<string, Record<string, string>> = {
     enterPhone: "Por favor, insira seu número de telefone:",
     enterCountry: "Por favor, insira seu país:",
     enterPromoCode: "Por favor, insira seu código promocional desejado (apenas letras latinas e números, mínimo 4 caracteres):",
+    excellentPromoCode: "Excelente! Por favor digite seu Código Promocional para completar seu registro.",
     invalidPromoCode: "❌ Código promocional inválido. Deve ter mínimo 4 caracteres, apenas letras latinas e números. Por favor, tente novamente:",
     invalidEmail: "❌ Formato de email inválido. Por favor, tente novamente:",
     thankYou: "✅ Obrigado! Seu registro foi enviado. Entraremos em contato em breve.",
@@ -301,6 +306,7 @@ const translations: Record<string, Record<string, string>> = {
     enterPhone: "Veuillez entrer votre numéro de téléphone:",
     enterCountry: "Veuillez entrer votre pays:",
     enterPromoCode: "Veuillez entrer votre code promo souhaité (lettres latines et chiffres uniquement, minimum 4 caractères):",
+    excellentPromoCode: "Excellent! Veuillez maintenant saisir votre Code Promo pour finaliser votre inscription.",
     invalidPromoCode: "❌ Code promo invalide. Doit contenir minimum 4 caractères, lettres latines et chiffres uniquement. Veuillez réessayer:",
     invalidEmail: "❌ Format d'email invalide. Veuillez réessayer:",
     thankYou: "✅ Merci! Votre inscription a été envoyée. Nous vous contacterons bientôt.",
@@ -350,6 +356,7 @@ const translations: Record<string, Record<string, string>> = {
     enterPhone: "कृपया अपना फोन नंबर दर्ज करें:",
     enterCountry: "कृपया अपना देश दर्ज करें:",
     enterPromoCode: "कृपया अपना वांछित प्रोमो कोड दर्ज करें (केवल लैटिन अक्षर और संख्याएं, न्यूनतम 4 वर्ण):",
+    excellentPromoCode: "बहुत बढ़िया! कृपया अब अपना प्रोमो कोड टाइप करें अपना पंजीकरण पूरा करने के लिए।",
     invalidPromoCode: "❌ अमान्य प्रोमो कोड। न्यूनतम 4 वर्ण, केवल लैटिन अक्षर और संख्याएं होनी चाहिए। कृपया पुनः प्रयास करें:",
     invalidEmail: "❌ अमान्य ईमेल प्रारूप। कृपया पुनः प्रयास करें:",
     thankYou: "✅ धन्यवाद! आपका पंजीकरण सबमिट किया गया है। हम जल्द ही संपर्क करेंगे।",
@@ -399,6 +406,7 @@ const translations: Record<string, Record<string, string>> = {
     enterPhone: "Por favor, insira seu número de telefone:",
     enterCountry: "Por favor, insira seu país:",
     enterPromoCode: "Por favor, insira seu código promocional desejado (apenas letras latinas e números, mínimo 4 caracteres):",
+    excellentPromoCode: "Excelente! Por favor digite seu Código Promocional para completar seu registro.",
     invalidPromoCode: "❌ Código promocional inválido. Deve ter mínimo 4 caracteres, apenas letras latinas e números. Por favor, tente novamente:",
     invalidEmail: "❌ Formato de email inválido. Por favor, tente novamente:",
     thankYou: "✅ Obrigado! Seu registro foi enviado. Entraremos em contato em breve.",
@@ -448,6 +456,7 @@ const translations: Record<string, Record<string, string>> = {
     enterPhone: "Vui lòng nhập số điện thoại của bạn:",
     enterCountry: "Vui lòng nhập quốc gia của bạn:",
     enterPromoCode: "Vui lòng nhập mã khuyến mãi mong muốn (chỉ chữ cái Latin và số, tối thiểu 4 ký tự):",
+    excellentPromoCode: "Tuyệt vời! Vui lòng nhập Mã Khuyến Mãi của bạn để hoàn tất đăng ký.",
     invalidPromoCode: "❌ Mã khuyến mãi không hợp lệ. Phải có tối thiểu 4 ký tự, chỉ chữ cái Latin và số. Vui lòng thử lại:",
     invalidEmail: "❌ Định dạng email không hợp lệ. Vui lòng thử lại:",
     thankYou: "✅ Cảm ơn! Đăng ký của bạn đã được gửi. Chúng tôi sẽ liên hệ sớm.",
@@ -497,6 +506,7 @@ const translations: Record<string, Record<string, string>> = {
     enterPhone: "Телефон нөміріңізді енгізіңіз:",
     enterCountry: "Еліңізді енгізіңіз:",
     enterPromoCode: "Қалаған промокодыңызды енгізіңіз (тек латын әріптері мен сандар, ең аз 4 таңба):",
+    excellentPromoCode: "Керемет! Тіркелуді аяқтау үшін промокодыңызды енгізіңіз.",
     invalidPromoCode: "❌ Жарамсыз промокод. Ең аз 4 таңба, тек латын әріптері мен сандар болуы керек. Қайталап көріңіз:",
     invalidEmail: "❌ Жарамсыз электрондық пошта форматы. Қайталап көріңіз:",
     thankYou: "✅ Рахмет! Тіркелуіңіз жіберілді. Жақында байланысамыз.",
@@ -546,6 +556,7 @@ const translations: Record<string, Record<string, string>> = {
     enterPhone: "الرجاء إدخال رقم الهاتف:",
     enterCountry: "الرجاء إدخال البلد:",
     enterPromoCode: "الرجاء إدخال رمز الترويج المطلوب (أحرف لاتينية وأرقام فقط، 4 أحرف على الأقل):",
+    excellentPromoCode: "ممتاز! يرجى الآن كتابة رمز الترويج الخاص بك لإكمال التسجيل.",
     invalidPromoCode: "❌ رمز الترويج غير صحيح. يجب أن يكون 4 أحرف على الأقل، أحرف لاتينية وأرقام فقط. الرجاء المحاولة مرة أخرى:",
     invalidEmail: "❌ تنسيق البريد الإلكتروني غير صحيح. الرجاء المحاولة مرة أخرى:",
     thankYou: "✅ شكراً لك! تم إرسال تسجيلك. سنتواصل معك قريباً.",
@@ -595,6 +606,7 @@ const translations: Record<string, Record<string, string>> = {
     enterPhone: "Iltimos, telefon raqamingizni kiriting:",
     enterCountry: "Iltimos, mamlakatni kiriting:",
     enterPromoCode: "Iltimos, istagan promo kodingizni kiriting (faqat lotin harflari va raqamlar, kamida 4 belgi):",
+    excellentPromoCode: "Ajoyib! Ro'yxatdan o'tishni yakunlash uchun promo kodingizni kiriting.",
     invalidPromoCode: "❌ Noto'g'ri promo kod. Kamida 4 belgi, faqat lotin harflari va raqamlar bo'lishi kerak. Iltimos, qayta urinib ko'ring:",
     invalidEmail: "❌ Noto'g'ri email formati. Iltimos, qayta urinib ko'ring:",
     thankYou: "✅ Rahmat! Ro'yxatdan o'tishingiz yuborildi. Tez orada siz bilan bog'lanamiz.",
@@ -644,6 +656,7 @@ const translations: Record<string, Record<string, string>> = {
     enterPhone: "请输入您的电话号码:",
     enterCountry: "请输入您的国家:",
     enterPromoCode: "请输入您想要的促销代码（仅拉丁字母和数字，最少4个字符）:",
+    excellentPromoCode: "太好了！请输入您的促销代码以完成注册。",
     invalidPromoCode: "❌ 无效的促销代码。必须至少4个字符，仅拉丁字母和数字。请重试:",
     invalidEmail: "❌ 无效的电子邮件格式。请重试:",
     thankYou: "✅ 谢谢！您的注册已提交。我们会尽快与您联系。",
@@ -952,7 +965,7 @@ bot.on('callback_query', async (query) => {
 
   // Country selection (Option 1) — callback ensures correct transition
   if (query.data?.startsWith('country_') && session.step === 'get_country') {
-    // Answer callback immediately to stop loading spinner
+    // Handshake: Answer callback immediately to stop Telegram loading spinner
     try {
       await bot.answerCallbackQuery(query.id);
     } catch (_) {
@@ -970,13 +983,13 @@ bot.on('callback_query', async (query) => {
     
     const opt = COUNTRY_OPTIONS.find((o) => o.cb === query.data);
     if (opt) {
-      // Update state immediately
+      // State Shift: Set state to AWAITING_PROMOCODE immediately
       session.data.country = opt.name;
-      session.step = 'get_promo_code';
+      session.step = 'AWAITING_PROMOCODE';
       sessions.set(chatId, session);
       
-      // Send next prompt immediately
-      await bot.sendMessage(chatId, t(chatId, 'enterPromoCode'), {
+      // The Prompt: Send message asking for promo code in their language
+      await bot.sendMessage(chatId, t(chatId, 'excellentPromoCode'), {
         reply_markup: { inline_keyboard: [[{ text: t(chatId, 'back'), callback_data: 'back_to_main' }]] }
       });
     }
@@ -1209,20 +1222,30 @@ bot.on('message', async (msg) => {
 
     case 'get_country':
       session.data.country = text ?? '';
-      session.step = 'get_promo_code';
+      session.step = 'AWAITING_PROMOCODE';
       sessions.set(chatId, session);
-      await bot.sendMessage(chatId, t(chatId, 'enterPromoCode'), {
+      await bot.sendMessage(chatId, t(chatId, 'excellentPromoCode'), {
         reply_markup: { inline_keyboard: [[{ text: t(chatId, 'back'), callback_data: 'back_to_main' }]] }
       });
       break;
 
     case 'get_promo_code':
+    case 'AWAITING_PROMOCODE':
+      // Text Listener: Catch text when state is AWAITING_PROMOCODE
+      if (!text || text.trim().length === 0 || text.startsWith('/')) {
+        // If they type nothing or a command, remind them to enter the code
+        await bot.sendMessage(chatId, t(chatId, 'excellentPromoCode'), {
+          reply_markup: { inline_keyboard: [[{ text: t(chatId, 'back'), callback_data: 'back_to_main' }]] }
+        });
+        return;
+      }
       if (!isValidPromoCode(text ?? '')) {
         await bot.sendMessage(chatId, t(chatId, 'invalidPromoCode'), {
           reply_markup: { inline_keyboard: [[{ text: t(chatId, 'back'), callback_data: 'back_to_main' }]] }
         });
         return;
       }
+      // If they type a code, save it and move to the next menu
       session.data.promoCode = text ?? '';
       sessions.set(chatId, session);
       await sendReviewAndSetStep();
