@@ -58,6 +58,7 @@ const translations: Record<string, Record<string, string>> = {
     enterPromoCode: "Please enter your desired promo code (Latin letters and numbers only, minimum 4 characters):",
     excellentPromoCode: "Excellent! Please now type your Promo Code to complete your registration.",
     excellentPromoCodeContinue: "Excellent! Please now type your Promo Code to continue.",
+    countrySelectedPromoCode: "Country selected! Now, please type your Promo Code to continue.",
     incorrectPromoCodeTryAgain: "❌ Incorrect Promo Code. Please try again.",
     invalidPromoCode: "❌ Invalid promo code. Must be at least 4 characters, Latin letters and numbers only. Please try again:",
     invalidEmail: "❌ Invalid email format. Please try again:",
@@ -110,6 +111,7 @@ const translations: Record<string, Record<string, string>> = {
     enterPromoCode: "Пожалуйста, введите желаемый промокод (только латинские буквы и цифры, минимум 4 символа):",
     excellentPromoCode: "Отлично! Теперь введите ваш промокод, чтобы завершить регистрацию.",
     excellentPromoCodeContinue: "Отлично! Теперь введите ваш промокод, чтобы продолжить.",
+    countrySelectedPromoCode: "Страна выбрана! Теперь, пожалуйста, введите ваш промокод, чтобы продолжить.",
     incorrectPromoCodeTryAgain: "❌ Неверный промокод. Попробуйте снова.",
     invalidPromoCode: "❌ Неверный промокод. Должен быть минимум 4 символа, только латинские буквы и цифры. Попробуйте снова:",
     invalidEmail: "❌ Неверный формат email. Попробуйте снова:",
@@ -162,6 +164,7 @@ const translations: Record<string, Record<string, string>> = {
     enterPromoCode: "Lütfen istediğiniz promosyon kodunu girin (sadece Latin harfleri ve rakamlar, minimum 4 karakter):",
     excellentPromoCode: "Harika! Kaydınızı tamamlamak için lütfen Promo Kodunuzu yazın.",
     excellentPromoCodeContinue: "Harika! Devam etmek için lütfen Promo Kodunuzu yazın.",
+    countrySelectedPromoCode: "Ülke seçildi! Şimdi lütfen devam etmek için Promo Kodunuzu yazın.",
     incorrectPromoCodeTryAgain: "❌ Yanlış Promo Kodu. Lütfen tekrar deneyin.",
     invalidPromoCode: "❌ Geçersiz promosyon kodu. Minimum 4 karakter, sadece Latin harfleri ve rakamlar olmalıdır. Lütfen tekrar deneyin:",
     invalidEmail: "❌ Geçersiz e-posta formatı. Lütfen tekrar deneyin:",
@@ -214,6 +217,7 @@ const translations: Record<string, Record<string, string>> = {
     enterPromoCode: "Por favor ingrese su código promocional deseado (solo letras latinas y números, mínimo 4 caracteres):",
     excellentPromoCode: "¡Excelente! Por favor escriba su Código Promocional para completar su registro.",
     excellentPromoCodeContinue: "¡Excelente! Por favor escriba su Código Promocional para continuar.",
+    countrySelectedPromoCode: "¡País seleccionado! Ahora, por favor escriba su Código Promocional para continuar.",
     incorrectPromoCodeTryAgain: "❌ Código promocional incorrecto. Por favor intente de nuevo.",
     invalidPromoCode: "❌ Código promocional inválido. Debe tener mínimo 4 caracteres, solo letras latinas y números. Por favor intente de nuevo:",
     invalidEmail: "❌ Formato de correo electrónico inválido. Por favor intente de nuevo:",
@@ -266,6 +270,7 @@ const translations: Record<string, Record<string, string>> = {
     enterPromoCode: "Por favor, insira seu código promocional desejado (apenas letras latinas e números, mínimo 4 caracteres):",
     excellentPromoCode: "Excelente! Por favor digite seu Código Promocional para completar seu registro.",
     excellentPromoCodeContinue: "Excelente! Por favor digite seu Código Promocional para continuar.",
+    countrySelectedPromoCode: "País selecionado! Agora, por favor digite seu Código Promocional para continuar.",
     incorrectPromoCodeTryAgain: "❌ Código promocional incorreto. Por favor, tente novamente.",
     invalidPromoCode: "❌ Código promocional inválido. Deve ter mínimo 4 caracteres, apenas letras latinas e números. Por favor, tente novamente:",
     invalidEmail: "❌ Formato de email inválido. Por favor, tente novamente:",
@@ -318,6 +323,7 @@ const translations: Record<string, Record<string, string>> = {
     enterPromoCode: "Veuillez entrer votre code promo souhaité (lettres latines et chiffres uniquement, minimum 4 caractères):",
     excellentPromoCode: "Excellent! Veuillez maintenant saisir votre Code Promo pour finaliser votre inscription.",
     excellentPromoCodeContinue: "Excellent! Veuillez maintenant saisir votre Code Promo pour continuer.",
+    countrySelectedPromoCode: "Pays sélectionné! Maintenant, veuillez saisir votre Code Promo pour continuer.",
     incorrectPromoCodeTryAgain: "❌ Code promo incorrect. Veuillez réessayer.",
     invalidPromoCode: "❌ Code promo invalide. Doit contenir minimum 4 caractères, lettres latines et chiffres uniquement. Veuillez réessayer:",
     invalidEmail: "❌ Format d'email invalide. Veuillez réessayer:",
@@ -370,6 +376,7 @@ const translations: Record<string, Record<string, string>> = {
     enterPromoCode: "कृपया अपना वांछित प्रोमो कोड दर्ज करें (केवल लैटिन अक्षर और संख्याएं, न्यूनतम 4 वर्ण):",
     excellentPromoCode: "बहुत बढ़िया! कृपया अब अपना प्रोमो कोड टाइप करें अपना पंजीकरण पूरा करने के लिए।",
     excellentPromoCodeContinue: "बहुत बढ़िया! कृपया अब अपना प्रोमो कोड टाइप करें जारी रखने के लिए।",
+    countrySelectedPromoCode: "देश चुना गया! अब, कृपया जारी रखने के लिए अपना प्रोमो कोड टाइप करें।",
     incorrectPromoCodeTryAgain: "❌ गलत प्रोमो कोड। कृपया पुनः प्रयास करें।",
     invalidPromoCode: "❌ अमान्य प्रोमो कोड। न्यूनतम 4 वर्ण, केवल लैटिन अक्षर और संख्याएं होनी चाहिए। कृपया पुनः प्रयास करें:",
     invalidEmail: "❌ अमान्य ईमेल प्रारूप। कृपया पुनः प्रयास करें:",
@@ -422,6 +429,7 @@ const translations: Record<string, Record<string, string>> = {
     enterPromoCode: "Por favor, insira seu código promocional desejado (apenas letras latinas e números, mínimo 4 caracteres):",
     excellentPromoCode: "Excelente! Por favor digite seu Código Promocional para completar seu registro.",
     excellentPromoCodeContinue: "Excelente! Por favor digite seu Código Promocional para continuar.",
+    countrySelectedPromoCode: "País selecionado! Agora, por favor digite seu Código Promocional para continuar.",
     incorrectPromoCodeTryAgain: "❌ Código promocional incorreto. Por favor, tente novamente.",
     invalidPromoCode: "❌ Código promocional inválido. Deve ter mínimo 4 caracteres, apenas letras latinas e números. Por favor, tente novamente:",
     invalidEmail: "❌ Formato de email inválido. Por favor, tente novamente:",
@@ -474,6 +482,7 @@ const translations: Record<string, Record<string, string>> = {
     enterPromoCode: "Vui lòng nhập mã khuyến mãi mong muốn (chỉ chữ cái Latin và số, tối thiểu 4 ký tự):",
     excellentPromoCode: "Tuyệt vời! Vui lòng nhập Mã Khuyến Mãi của bạn để hoàn tất đăng ký.",
     excellentPromoCodeContinue: "Tuyệt vời! Vui lòng nhập Mã Khuyến Mãi của bạn để tiếp tục.",
+    countrySelectedPromoCode: "Quốc gia đã được chọn! Bây giờ, vui lòng nhập Mã Khuyến Mãi của bạn để tiếp tục.",
     incorrectPromoCodeTryAgain: "❌ Mã khuyến mãi không đúng. Vui lòng thử lại.",
     invalidPromoCode: "❌ Mã khuyến mãi không hợp lệ. Phải có tối thiểu 4 ký tự, chỉ chữ cái Latin và số. Vui lòng thử lại:",
     invalidEmail: "❌ Định dạng email không hợp lệ. Vui lòng thử lại:",
@@ -526,6 +535,7 @@ const translations: Record<string, Record<string, string>> = {
     enterPromoCode: "Қалаған промокодыңызды енгізіңіз (тек латын әріптері мен сандар, ең аз 4 таңба):",
     excellentPromoCode: "Керемет! Тіркелуді аяқтау үшін промокодыңызды енгізіңіз.",
     excellentPromoCodeContinue: "Керемет! Жалғастыру үшін промокодыңызды енгізіңіз.",
+    countrySelectedPromoCode: "Ел таңдалды! Енді, жалғастыру үшін промокодыңызды енгізіңіз.",
     incorrectPromoCodeTryAgain: "❌ Қате промокод. Қайталап көріңіз.",
     invalidPromoCode: "❌ Жарамсыз промокод. Ең аз 4 таңба, тек латын әріптері мен сандар болуы керек. Қайталап көріңіз:",
     invalidEmail: "❌ Жарамсыз электрондық пошта форматы. Қайталап көріңіз:",
@@ -578,6 +588,7 @@ const translations: Record<string, Record<string, string>> = {
     enterPromoCode: "الرجاء إدخال رمز الترويج المطلوب (أحرف لاتينية وأرقام فقط، 4 أحرف على الأقل):",
     excellentPromoCode: "ممتاز! يرجى الآن كتابة رمز الترويج الخاص بك لإكمال التسجيل.",
     excellentPromoCodeContinue: "ممتاز! يرجى الآن كتابة رمز الترويج الخاص بك للمتابعة.",
+    countrySelectedPromoCode: "تم اختيار البلد! الآن، يرجى كتابة رمز الترويج الخاص بك للمتابعة.",
     incorrectPromoCodeTryAgain: "❌ رمز الترويج غير صحيح. الرجاء المحاولة مرة أخرى.",
     invalidPromoCode: "❌ رمز الترويج غير صحيح. يجب أن يكون 4 أحرف على الأقل، أحرف لاتينية وأرقام فقط. الرجاء المحاولة مرة أخرى:",
     invalidEmail: "❌ تنسيق البريد الإلكتروني غير صحيح. الرجاء المحاولة مرة أخرى:",
@@ -630,6 +641,7 @@ const translations: Record<string, Record<string, string>> = {
     enterPromoCode: "Iltimos, istagan promo kodingizni kiriting (faqat lotin harflari va raqamlar, kamida 4 belgi):",
     excellentPromoCode: "Ajoyib! Ro'yxatdan o'tishni yakunlash uchun promo kodingizni kiriting.",
     excellentPromoCodeContinue: "Ajoyib! Davom etish uchun promo kodingizni kiriting.",
+    countrySelectedPromoCode: "Mamlakat tanlandi! Endi, davom etish uchun promo kodingizni kiriting.",
     incorrectPromoCodeTryAgain: "❌ Noto'g'ri promo kod. Iltimos, qayta urinib ko'ring.",
     invalidPromoCode: "❌ Noto'g'ri promo kod. Kamida 4 belgi, faqat lotin harflari va raqamlar bo'lishi kerak. Iltimos, qayta urinib ko'ring:",
     invalidEmail: "❌ Noto'g'ri email formati. Iltimos, qayta urinib ko'ring:",
@@ -682,6 +694,7 @@ const translations: Record<string, Record<string, string>> = {
     enterPromoCode: "请输入您想要的促销代码（仅拉丁字母和数字，最少4个字符）:",
     excellentPromoCode: "太好了！请输入您的促销代码以完成注册。",
     excellentPromoCodeContinue: "太好了！请输入您的促销代码以继续。",
+    countrySelectedPromoCode: "已选择国家！现在，请输入您的促销代码以继续。",
     incorrectPromoCodeTryAgain: "❌ 促销代码不正确。请重试。",
     invalidPromoCode: "❌ 无效的促销代码。必须至少4个字符，仅拉丁字母和数字。请重试:",
     invalidEmail: "❌ 无效的电子邮件格式。请重试:",
@@ -779,21 +792,54 @@ bot.on('callback_query', async (query) => {
   const chatId = query.message?.chat.id;
   if (!chatId) return;
 
-  // Answer immediately to prevent "query is too old" / timeout — do not await long work before this
-  try {
-    await bot.answerCallbackQuery(query.id);
-  } catch (_) {
-    // Timeout or stale query; ignore so it doesn't crash the bot
-  }
-
+  // Get session first for country button check
   let session = sessions.get(chatId);
   if (!session) {
     session = { lang: 'en', step: 'select_language', data: {} };
     sessions.set(chatId, session);
   }
 
+  // Country selection handler - MUST be first to answer immediately
+  if (query.data?.startsWith('country_') && session.step === 'get_country') {
+    // Add the Handshake: answer immediately when any country button is pressed
+    await bot.answerCallbackQuery(query.id);
+
+    if (query.data === 'country_OTHER') {
+      session.step = 'get_country'; // Keep same step for typing
+      sessions.set(chatId, session);
+      await bot.sendMessage(chatId, t(chatId, 'typeCountry'), {
+        reply_markup: { inline_keyboard: [[{ text: t(chatId, 'back'), callback_data: 'back_to_main' }]] }
+      });
+      return;
+    }
+
+    const opt = COUNTRY_OPTIONS.find((o) => o.cb === query.data);
+    if (opt) {
+      // Switch to Promo State: set user state to AWAITING_PROMOCODE
+      session.data.country = opt.name;
+      session.step = 'AWAITING_PROMOCODE';
+      sessions.set(chatId, session);
+
+      // Ask for the Code: send message asking for promo code
+      await bot.sendMessage(chatId, t(chatId, 'countrySelectedPromoCode'), {
+        reply_markup: { inline_keyboard: [[{ text: t(chatId, 'back'), callback_data: 'back_to_main' }]] }
+      });
+    }
+    return;
+  }
+
   // Clean up: ignore old country button clicks when user is already awaiting promo code
-  if (session.step === 'AWAITING_PROMOCODE' && query.data?.startsWith('country_')) return;
+  if (session.step === 'AWAITING_PROMOCODE' && query.data?.startsWith('country_')) {
+    await bot.answerCallbackQuery(query.id);
+    return;
+  }
+
+  // Answer immediately to prevent "query is too old" / timeout — do not await long work before this
+  try {
+    await bot.answerCallbackQuery(query.id);
+  } catch (_) {
+    // Timeout or stale query; ignore so it doesn't crash the bot
+  }
 
   // Language selection
   if (query.data?.startsWith('lang_')) {
@@ -995,34 +1041,6 @@ bot.on('callback_query', async (query) => {
     return;
   }
 
-  // Country selection (Option 1) — callback ensures correct transition
-  if (query.data?.startsWith('country_') && session.step === 'get_country') {
-    // End the Freeze: answer as the very first line to stop Telegram loading spinner
-    try { await bot.answerCallbackQuery(query.id); } catch (_) { /* already answered */ }
-
-    if (query.data === 'country_OTHER') {
-      session.step = 'get_country'; // Keep same step for typing
-      sessions.set(chatId, session);
-      await bot.sendMessage(chatId, t(chatId, 'typeCountry'), {
-        reply_markup: { inline_keyboard: [[{ text: t(chatId, 'back'), callback_data: 'back_to_main' }]] }
-      });
-      return;
-    }
-
-    const opt = COUNTRY_OPTIONS.find((o) => o.cb === query.data);
-    if (opt) {
-      // State Transition: set user's state to AWAITING_PROMOCODE immediately
-      session.data.country = opt.name;
-      session.step = 'AWAITING_PROMOCODE';
-      sessions.set(chatId, session);
-
-      // Ask for Code: send message in the user's language
-      await bot.sendMessage(chatId, t(chatId, 'excellentPromoCodeContinue'), {
-        reply_markup: { inline_keyboard: [[{ text: t(chatId, 'back'), callback_data: 'back_to_main' }]] }
-      });
-    }
-    return;
-  }
 
   // Confirm details — send report to admin only when user confirms (fill_info flow)
   if (query.data === 'confirm_details') {
@@ -1252,7 +1270,7 @@ bot.on('message', async (msg) => {
       session.data.country = text ?? '';
       session.step = 'AWAITING_PROMOCODE';
       sessions.set(chatId, session);
-      await bot.sendMessage(chatId, t(chatId, 'excellentPromoCodeContinue'), {
+      await bot.sendMessage(chatId, t(chatId, 'countrySelectedPromoCode'), {
         reply_markup: { inline_keyboard: [[{ text: t(chatId, 'back'), callback_data: 'back_to_main' }]] }
       });
       break;
