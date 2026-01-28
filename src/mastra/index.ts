@@ -838,7 +838,7 @@ bot.on('callback_query', async (query) => {
     // Force Session Creation: Ensure session exists before processing
     if (!session) {
       console.log(`[DEBUG] User clicked Country. Current Session: MISSING - Creating new session`);
-      session = { lang: 'en', step: 'get_country', flowType: 'fill_info', data: {} };
+      session = { lang: 'en', step: 'get_country', flowType: 'fill_info' as const, data: {} };
       sessions.set(chatId, session);
     } else {
       console.log(`[DEBUG] User clicked Country. Current Session:`, JSON.stringify({
@@ -883,7 +883,7 @@ bot.on('callback_query', async (query) => {
           session.data = session.data || {};
           session.data.country = opt.name;
           session.step = 'AWAITING_PROMOCODE';
-          session.flowType = 'fill_info';
+          session.flowType = 'fill_info' as const;
           session.lang = selectedLang;
           
           // Force Session Creation: Save session BEFORE sending message
@@ -899,7 +899,7 @@ bot.on('callback_query', async (query) => {
             sessions.set(chatId, {
               lang: selectedLang,
               step: 'AWAITING_PROMOCODE',
-              flowType: 'fill_info',
+              flowType: 'fill_info' as const,
               data: { country: opt.name }
             });
           }
@@ -929,10 +929,11 @@ bot.on('callback_query', async (query) => {
           // Set Step: Ensure session is saved BEFORE sending the promo code message
           // This ensures the session exists when the user types their promo code
           // Initialize Flow on Click: Create complete session object with all required fields
+          // Match the Literal Types: flowType must be exactly 'fill_info' (Option 1); Option 2 uses 'link'
           const finalSessionData = {
             lang: selectedLang,
             step: 'AWAITING_PROMOCODE',
-            flowType: 'fill_info',
+            flowType: 'fill_info' as const,
             data: { country: opt.name }
           };
           sessions.set(chatId, finalSessionData);
@@ -955,8 +956,13 @@ bot.on('callback_query', async (query) => {
           
           if (!finalSession || finalSession.step !== 'AWAITING_PROMOCODE' || finalSession.flowType !== 'fill_info') {
             console.error(`[ERROR] Path 1: Session was lost after sending message! Expected step: AWAITING_PROMOCODE, flowType: fill_info. Got step: ${finalSession?.step || 'none'}, flowType: ${finalSession?.flowType || 'none'}`);
-            // Force Session Creation: Re-create session if it was lost
-            sessions.set(chatId, finalSessionData);
+            // Force Session Creation: Re-create session if it was lost (flowType: 'fill_info' = Option 1)
+            sessions.set(chatId, {
+              lang: selectedLang,
+              step: 'AWAITING_PROMOCODE',
+              flowType: 'fill_info' as const,
+              data: { country: opt.name }
+            });
             console.log(`[ERROR] Path 1: Re-created session for chatId: ${chatId}`);
           }
         } else {
