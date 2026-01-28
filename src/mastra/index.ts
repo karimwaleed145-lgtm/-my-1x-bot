@@ -59,6 +59,7 @@ const translations: Record<string, Record<string, string>> = {
     excellentPromoCode: "Excellent! Please now type your Promo Code to complete your registration.",
     excellentPromoCodeContinue: "Excellent! Please now type your Promo Code to continue.",
     countrySelectedPromoCode: "Country selected! Now, please type your Promo Code to continue.",
+    somethingWentWrong: "Something went wrong, please try again.",
     incorrectPromoCodeTryAgain: "❌ Incorrect Promo Code. Please try again.",
     invalidPromoCode: "❌ Invalid promo code. Must be at least 4 characters, Latin letters and numbers only. Please try again:",
     invalidEmail: "❌ Invalid email format. Please try again:",
@@ -112,6 +113,7 @@ const translations: Record<string, Record<string, string>> = {
     excellentPromoCode: "Отлично! Теперь введите ваш промокод, чтобы завершить регистрацию.",
     excellentPromoCodeContinue: "Отлично! Теперь введите ваш промокод, чтобы продолжить.",
     countrySelectedPromoCode: "Страна выбрана! Теперь, пожалуйста, введите ваш промокод, чтобы продолжить.",
+    somethingWentWrong: "Что-то пошло не так, пожалуйста, попробуйте снова.",
     incorrectPromoCodeTryAgain: "❌ Неверный промокод. Попробуйте снова.",
     invalidPromoCode: "❌ Неверный промокод. Должен быть минимум 4 символа, только латинские буквы и цифры. Попробуйте снова:",
     invalidEmail: "❌ Неверный формат email. Попробуйте снова:",
@@ -165,6 +167,7 @@ const translations: Record<string, Record<string, string>> = {
     excellentPromoCode: "Harika! Kaydınızı tamamlamak için lütfen Promo Kodunuzu yazın.",
     excellentPromoCodeContinue: "Harika! Devam etmek için lütfen Promo Kodunuzu yazın.",
     countrySelectedPromoCode: "Ülke seçildi! Şimdi lütfen devam etmek için Promo Kodunuzu yazın.",
+    somethingWentWrong: "Bir şeyler yanlış gitti, lütfen tekrar deneyin.",
     incorrectPromoCodeTryAgain: "❌ Yanlış Promo Kodu. Lütfen tekrar deneyin.",
     invalidPromoCode: "❌ Geçersiz promosyon kodu. Minimum 4 karakter, sadece Latin harfleri ve rakamlar olmalıdır. Lütfen tekrar deneyin:",
     invalidEmail: "❌ Geçersiz e-posta formatı. Lütfen tekrar deneyin:",
@@ -218,6 +221,7 @@ const translations: Record<string, Record<string, string>> = {
     excellentPromoCode: "¡Excelente! Por favor escriba su Código Promocional para completar su registro.",
     excellentPromoCodeContinue: "¡Excelente! Por favor escriba su Código Promocional para continuar.",
     countrySelectedPromoCode: "¡País seleccionado! Ahora, por favor escriba su Código Promocional para continuar.",
+    somethingWentWrong: "Algo salió mal, por favor intente de nuevo.",
     incorrectPromoCodeTryAgain: "❌ Código promocional incorrecto. Por favor intente de nuevo.",
     invalidPromoCode: "❌ Código promocional inválido. Debe tener mínimo 4 caracteres, solo letras latinas y números. Por favor intente de nuevo:",
     invalidEmail: "❌ Formato de correo electrónico inválido. Por favor intente de nuevo:",
@@ -271,6 +275,7 @@ const translations: Record<string, Record<string, string>> = {
     excellentPromoCode: "Excelente! Por favor digite seu Código Promocional para completar seu registro.",
     excellentPromoCodeContinue: "Excelente! Por favor digite seu Código Promocional para continuar.",
     countrySelectedPromoCode: "País selecionado! Agora, por favor digite seu Código Promocional para continuar.",
+    somethingWentWrong: "Algo deu errado, por favor tente novamente.",
     incorrectPromoCodeTryAgain: "❌ Código promocional incorreto. Por favor, tente novamente.",
     invalidPromoCode: "❌ Código promocional inválido. Deve ter mínimo 4 caracteres, apenas letras latinas e números. Por favor, tente novamente:",
     invalidEmail: "❌ Formato de email inválido. Por favor, tente novamente:",
@@ -324,6 +329,7 @@ const translations: Record<string, Record<string, string>> = {
     excellentPromoCode: "Excellent! Veuillez maintenant saisir votre Code Promo pour finaliser votre inscription.",
     excellentPromoCodeContinue: "Excellent! Veuillez maintenant saisir votre Code Promo pour continuer.",
     countrySelectedPromoCode: "Pays sélectionné! Maintenant, veuillez saisir votre Code Promo pour continuer.",
+    somethingWentWrong: "Quelque chose s'est mal passé, veuillez réessayer.",
     incorrectPromoCodeTryAgain: "❌ Code promo incorrect. Veuillez réessayer.",
     invalidPromoCode: "❌ Code promo invalide. Doit contenir minimum 4 caractères, lettres latines et chiffres uniquement. Veuillez réessayer:",
     invalidEmail: "❌ Format d'email invalide. Veuillez réessayer:",
@@ -377,6 +383,7 @@ const translations: Record<string, Record<string, string>> = {
     excellentPromoCode: "बहुत बढ़िया! कृपया अब अपना प्रोमो कोड टाइप करें अपना पंजीकरण पूरा करने के लिए।",
     excellentPromoCodeContinue: "बहुत बढ़िया! कृपया अब अपना प्रोमो कोड टाइप करें जारी रखने के लिए।",
     countrySelectedPromoCode: "देश चुना गया! अब, कृपया जारी रखने के लिए अपना प्रोमो कोड टाइप करें।",
+    somethingWentWrong: "कुछ गलत हो गया, कृपया पुनः प्रयास करें।",
     incorrectPromoCodeTryAgain: "❌ गलत प्रोमो कोड। कृपया पुनः प्रयास करें।",
     invalidPromoCode: "❌ अमान्य प्रोमो कोड। न्यूनतम 4 वर्ण, केवल लैटिन अक्षर और संख्याएं होनी चाहिए। कृपया पुनः प्रयास करें:",
     invalidEmail: "❌ अमान्य ईमेल प्रारूप। कृपया पुनः प्रयास करें:",
@@ -430,6 +437,7 @@ const translations: Record<string, Record<string, string>> = {
     excellentPromoCode: "Excelente! Por favor digite seu Código Promocional para completar seu registro.",
     excellentPromoCodeContinue: "Excelente! Por favor digite seu Código Promocional para continuar.",
     countrySelectedPromoCode: "País selecionado! Agora, por favor digite seu Código Promocional para continuar.",
+    somethingWentWrong: "Algo deu errado, por favor tente novamente.",
     incorrectPromoCodeTryAgain: "❌ Código promocional incorreto. Por favor, tente novamente.",
     invalidPromoCode: "❌ Código promocional inválido. Deve ter mínimo 4 caracteres, apenas letras latinas e números. Por favor, tente novamente:",
     invalidEmail: "❌ Formato de email inválido. Por favor, tente novamente:",
@@ -483,6 +491,7 @@ const translations: Record<string, Record<string, string>> = {
     excellentPromoCode: "Tuyệt vời! Vui lòng nhập Mã Khuyến Mãi của bạn để hoàn tất đăng ký.",
     excellentPromoCodeContinue: "Tuyệt vời! Vui lòng nhập Mã Khuyến Mãi của bạn để tiếp tục.",
     countrySelectedPromoCode: "Quốc gia đã được chọn! Bây giờ, vui lòng nhập Mã Khuyến Mãi của bạn để tiếp tục.",
+    somethingWentWrong: "Đã xảy ra lỗi, vui lòng thử lại.",
     incorrectPromoCodeTryAgain: "❌ Mã khuyến mãi không đúng. Vui lòng thử lại.",
     invalidPromoCode: "❌ Mã khuyến mãi không hợp lệ. Phải có tối thiểu 4 ký tự, chỉ chữ cái Latin và số. Vui lòng thử lại:",
     invalidEmail: "❌ Định dạng email không hợp lệ. Vui lòng thử lại:",
@@ -536,6 +545,7 @@ const translations: Record<string, Record<string, string>> = {
     excellentPromoCode: "Керемет! Тіркелуді аяқтау үшін промокодыңызды енгізіңіз.",
     excellentPromoCodeContinue: "Керемет! Жалғастыру үшін промокодыңызды енгізіңіз.",
     countrySelectedPromoCode: "Ел таңдалды! Енді, жалғастыру үшін промокодыңызды енгізіңіз.",
+    somethingWentWrong: "Бір нәрсе дұрыс болмады, қайталап көріңіз.",
     incorrectPromoCodeTryAgain: "❌ Қате промокод. Қайталап көріңіз.",
     invalidPromoCode: "❌ Жарамсыз промокод. Ең аз 4 таңба, тек латын әріптері мен сандар болуы керек. Қайталап көріңіз:",
     invalidEmail: "❌ Жарамсыз электрондық пошта форматы. Қайталап көріңіз:",
@@ -589,6 +599,7 @@ const translations: Record<string, Record<string, string>> = {
     excellentPromoCode: "ممتاز! يرجى الآن كتابة رمز الترويج الخاص بك لإكمال التسجيل.",
     excellentPromoCodeContinue: "ممتاز! يرجى الآن كتابة رمز الترويج الخاص بك للمتابعة.",
     countrySelectedPromoCode: "تم اختيار البلد! الآن، يرجى كتابة رمز الترويج الخاص بك للمتابعة.",
+    somethingWentWrong: "حدث خطأ ما، يرجى المحاولة مرة أخرى.",
     incorrectPromoCodeTryAgain: "❌ رمز الترويج غير صحيح. الرجاء المحاولة مرة أخرى.",
     invalidPromoCode: "❌ رمز الترويج غير صحيح. يجب أن يكون 4 أحرف على الأقل، أحرف لاتينية وأرقام فقط. الرجاء المحاولة مرة أخرى:",
     invalidEmail: "❌ تنسيق البريد الإلكتروني غير صحيح. الرجاء المحاولة مرة أخرى:",
@@ -642,6 +653,7 @@ const translations: Record<string, Record<string, string>> = {
     excellentPromoCode: "Ajoyib! Ro'yxatdan o'tishni yakunlash uchun promo kodingizni kiriting.",
     excellentPromoCodeContinue: "Ajoyib! Davom etish uchun promo kodingizni kiriting.",
     countrySelectedPromoCode: "Mamlakat tanlandi! Endi, davom etish uchun promo kodingizni kiriting.",
+    somethingWentWrong: "Nimadir noto'g'ri ketdi, iltimos qayta urinib ko'ring.",
     incorrectPromoCodeTryAgain: "❌ Noto'g'ri promo kod. Iltimos, qayta urinib ko'ring.",
     invalidPromoCode: "❌ Noto'g'ri promo kod. Kamida 4 belgi, faqat lotin harflari va raqamlar bo'lishi kerak. Iltimos, qayta urinib ko'ring:",
     invalidEmail: "❌ Noto'g'ri email formati. Iltimos, qayta urinib ko'ring:",
@@ -695,6 +707,7 @@ const translations: Record<string, Record<string, string>> = {
     excellentPromoCode: "太好了！请输入您的促销代码以完成注册。",
     excellentPromoCodeContinue: "太好了！请输入您的促销代码以继续。",
     countrySelectedPromoCode: "已选择国家！现在，请输入您的促销代码以继续。",
+    somethingWentWrong: "出了点问题，请重试。",
     incorrectPromoCodeTryAgain: "❌ 促销代码不正确。请重试。",
     invalidPromoCode: "❌ 无效的促销代码。必须至少4个字符，仅拉丁字母和数字。请重试:",
     invalidEmail: "❌ 无效的电子邮件格式。请重试:",
@@ -811,63 +824,91 @@ bot.on('callback_query', async (query) => {
 
   // Country selection handler - MUST be first to answer immediately
   // This handler is ONLY for Option 1 (fill_info flow)
+  // Try/Catch Block: Wrap entire handler to prevent crashes
   if (query.data?.startsWith('country_')) {
-    // Explicit Handshake: answer immediately when any country button is pressed (BEFORE any other logic)
     try {
+      // Fix Option 1 Path: Call answerCallbackQuery immediately
       await bot.answerCallbackQuery(query.id);
     } catch (err) {
-      console.error('Error answering callback query:', err);
-      // Continue even if answer fails
+      console.error('[ERROR] Error answering callback query:', err);
+      // Continue even if answer fails - don't crash
     }
 
     // Check Callback Data: Only process Option 1 (fill_info) country selections
     // Option 2 (link) doesn't use country selection, so we only handle fill_info flow
     if (session.step === 'get_country' && session.flowType === 'fill_info') {
-      console.log(`[DEBUG] Path 1: Country button clicked for Option 1. Callback: ${query.data}, Step: ${session.step}, FlowType: ${session.flowType}`);
+      try {
+        console.log(`[DEBUG] Path 1: Country button clicked for Option 1. Callback: ${query.data}, Step: ${session.step}, FlowType: ${session.flowType}`);
 
-      if (query.data === 'country_OTHER') {
-        session.step = 'get_country'; // Keep same step for typing
-        sessions.set(chatId, session);
-        const typeCountryText = safeMessage(t(chatId, 'typeCountry', 'Please type your country:'), 'Please type your country:');
-        const backText = safeMessage(t(chatId, 'back', '🔙 Back'), '🔙 Back');
-        if (!typeCountryText || !backText) {
-          console.error('Error: Empty translation for typeCountry or back');
+        if (query.data === 'country_OTHER') {
+          session.step = 'get_country'; // Keep same step for typing
+          sessions.set(chatId, session);
+          const typeCountryText = safeMessage(t(chatId, 'typeCountry', 'Please type your country:'), 'Please type your country:');
+          const backText = safeMessage(t(chatId, 'back', '🔙 Back'), '🔙 Back');
+          if (!typeCountryText || !backText) {
+            console.error('Error: Empty translation for typeCountry or back');
+            // State Reset: Send error recovery message
+            await bot.sendMessage(chatId, safeMessage(t(chatId, 'somethingWentWrong', 'Something went wrong, please try again.'), 'Something went wrong, please try again.'));
+            return;
+          }
+          await bot.sendMessage(chatId, typeCountryText, {
+            reply_markup: { inline_keyboard: [[{ text: backText, callback_data: 'back_to_main' }]] }
+          });
           return;
         }
-        await bot.sendMessage(chatId, typeCountryText, {
-          reply_markup: { inline_keyboard: [[{ text: backText, callback_data: 'back_to_main' }]] }
-        });
-        return;
-      }
 
-      const opt = COUNTRY_OPTIONS.find((o) => o.cb === query.data);
-      if (opt) {
-        // Force State Change: Explicitly set the user's state to AWAITING_PROMOCODE for Option 1
-        session.data.country = opt.name;
-        session.step = 'AWAITING_PROMOCODE';
-        sessions.set(chatId, session);
-        
-        console.log(`[DEBUG] Path 1: Country selected, moving to promo code. Country: ${opt.name}, New step: ${session.step}, FlowType: ${session.flowType}`);
+        const opt = COUNTRY_OPTIONS.find((o) => o.cb === query.data);
+        if (opt) {
+          // Force State Change: Explicitly set the user's state to AWAITING_PROMOCODE for Option 1
+          session.data.country = opt.name;
+          session.step = 'AWAITING_PROMOCODE';
+          sessions.set(chatId, session);
+          
+          console.log(`[DEBUG] Path 1: Country selected, moving to promo code. Country: ${opt.name}, New step: ${session.step}, FlowType: ${session.flowType}`);
 
-        // Verify Promo Prompt: Use the exact same variable as Option 2 to ensure consistency
-        const promoPromptText = safeMessage(
-          t(chatId, 'countrySelectedPromoCode', 'Country selected! Now, please type your Promo Code to continue.'),
-          'Country selected! Now, please type your Promo Code to continue.'
-        );
-        const backText = safeMessage(t(chatId, 'back', '🔙 Back'), '🔙 Back');
-        
-        if (!promoPromptText || !backText || promoPromptText.trim().length === 0) {
-          console.error(`[DEBUG] Error: Attempted to send empty message after country selection. Promo text length: ${promoPromptText?.length || 0}, Back text length: ${backText?.length || 0}`);
-          return;
+          // Non-Empty String Check: Check translation directly before using
+          const lang = session.lang || 'en';
+          const rawMessageText = translations[lang]?.countrySelectedPromoCode || translations.en?.countrySelectedPromoCode || 'Please enter your promo code:';
+          if (!rawMessageText || rawMessageText.trim().length === 0) {
+            throw new Error('Translation missing for promo prompt');
+          }
+
+          const promoPromptText = safeMessage(
+            rawMessageText,
+            'Country selected! Now, please type your Promo Code to continue.'
+          );
+          const backText = safeMessage(t(chatId, 'back', '🔙 Back'), '🔙 Back');
+          
+          if (!promoPromptText || !backText || promoPromptText.trim().length === 0) {
+            console.error(`[DEBUG] Error: Attempted to send empty message after country selection. Promo text length: ${promoPromptText?.length || 0}, Back text length: ${backText?.length || 0}`);
+            // State Reset: Send error recovery message
+            await bot.sendMessage(chatId, safeMessage(t(chatId, 'somethingWentWrong', 'Something went wrong, please try again.'), 'Something went wrong, please try again.'));
+            return;
+          }
+          
+          console.log(`[DEBUG] Path 1: Sending promo code prompt to user. Text length: ${promoPromptText.length}, Text preview: ${promoPromptText.substring(0, 50)}...`);
+          await bot.sendMessage(chatId, promoPromptText, {
+            reply_markup: { inline_keyboard: [[{ text: backText, callback_data: 'back_to_main' }]] }
+          });
+          console.log(`[DEBUG] Path 1: Promo code prompt sent successfully for Option 1`);
+        } else {
+          console.error(`[DEBUG] Path 1: Country option not found for callback: ${query.data}`);
+          // State Reset: Send error recovery message
+          await bot.sendMessage(chatId, safeMessage(t(chatId, 'somethingWentWrong', 'Something went wrong, please try again.'), 'Something went wrong, please try again.'));
         }
-        
-        console.log(`[DEBUG] Path 1: Sending promo code prompt to user. Text length: ${promoPromptText.length}, Text preview: ${promoPromptText.substring(0, 50)}...`);
-        await bot.sendMessage(chatId, promoPromptText, {
-          reply_markup: { inline_keyboard: [[{ text: backText, callback_data: 'back_to_main' }]] }
-        });
-        console.log(`[DEBUG] Path 1: Promo code prompt sent successfully for Option 1`);
-      } else {
-        console.error(`[DEBUG] Path 1: Country option not found for callback: ${query.data}`);
+      } catch (e) {
+        // Try/Catch Block: Log error instead of crashing
+        console.error('[ERROR] Option 1 country handler error:', e);
+        // State Reset: Send error recovery message so user isn't stuck
+        try {
+          await bot.sendMessage(chatId, safeMessage(t(chatId, 'somethingWentWrong', 'Something went wrong, please try again.'), 'Something went wrong, please try again.'), {
+            reply_markup: {
+              inline_keyboard: [[{ text: safeMessage(t(chatId, 'back', '🔙 Back'), '🔙 Back'), callback_data: 'back_to_main' }]]
+            }
+          });
+        } catch (sendError) {
+          console.error('[ERROR] Failed to send error recovery message:', sendError);
+        }
       }
     } else {
       console.log(`[DEBUG] Country button clicked but conditions not met. Step: ${session.step}, FlowType: ${session.flowType || 'none'}, Expected: step=get_country AND flowType=fill_info`);
