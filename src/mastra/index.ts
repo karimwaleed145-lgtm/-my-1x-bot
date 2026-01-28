@@ -5,6 +5,12 @@ const app = express();
 // Render will set PORT; default to 10000 for local/dev
 const PORT = process.env.PORT || '10000';
 
+// Minimal health check route - must be before any middleware or logging
+app.get('/health', (req, res) => {
+  res.writeHead(200, { 'Content-Type': 'text/plain' });
+  res.end('OK');
+});
+
 const token = '8051153052:AAH2kD20SdH48uKCPZqggk8_z6rfEO3nbCQ';
 const bot = new TelegramBot(token, { polling: true });
 const MY_ADMIN_ID = '7603957873';
@@ -1244,10 +1250,6 @@ bot.on('message', async (msg) => {
 
 // HTTP server for Render port scan / health check (skip when PORT not set, e.g. local run)
 app.get('/', (_req, res) => res.send('ok'));
-app.get('/health', (_req, res) => {
-  res.set('Content-Type', 'text/plain');
-  res.status(200).send('OK');
-});
 
 if (process.env.PORT) {
   try {
