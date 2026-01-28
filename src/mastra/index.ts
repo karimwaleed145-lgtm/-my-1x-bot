@@ -826,12 +826,28 @@ bot.on('callback_query', async (query) => {
   // This handler is ONLY for Option 1 (fill_info flow)
   // Try/Catch Block: Wrap entire handler to prevent crashes
   if (query.data?.startsWith('country_')) {
+    // Answer the Query: Ensure bot.answerCallbackQuery is called BEFORE the session update to prevent Telegram timeout
     try {
       // Fix Option 1 Path: Call answerCallbackQuery immediately
       await bot.answerCallbackQuery(query.id);
     } catch (err) {
       console.error('[ERROR] Error answering callback query:', err);
       // Continue even if answer fails - don't crash
+    }
+
+    // Force Session Creation: Ensure session exists before processing
+    if (!session) {
+      console.log(`[DEBUG] User clicked Country. Current Session: MISSING - Creating new session`);
+      session = { lang: 'en', step: 'get_country', flowType: 'fill_info', data: {} };
+      sessions.set(chatId, session);
+    } else {
+      console.log(`[DEBUG] User clicked Country. Current Session:`, JSON.stringify({
+        step: session.step,
+        flowType: session.flowType || 'none',
+        lang: session.lang,
+        hasData: !!session.data,
+        dataKeys: session.data ? Object.keys(session.data) : []
+      }));
     }
 
     // Check Callback Data: Only process Option 1 (fill_info) country selections
@@ -859,12 +875,22 @@ bot.on('callback_query', async (query) => {
 
         const opt = COUNTRY_OPTIONS.find((o) => o.cb === query.data);
         if (opt) {
-          // Force State Change: Explicitly set the user's state to AWAITING_PROMOCODE for Option 1
+          // Update the Step: Specifically for Option 1, verify that the code is actually updating the step variable
           session.data.country = opt.name;
           session.step = 'AWAITING_PROMOCODE';
-          sessions.set(chatId, session);
+          // Force Session Creation: Ensure session is saved immediately with proper structure
+          const selectedLang = session.lang || 'en';
+          sessions.set(chatId, {
+            lang: selectedLang,
+            step: 'AWAITING_PROMOCODE',
+            flowType: 'fill_info',
+            data: session.data
+          });
           
-          console.log(`[DEBUG] Path 1: Country selected, moving to promo code. Country: ${opt.name}, New step: ${session.step}, FlowType: ${session.flowType}`);
+          // Verify session was saved
+          const savedSession = sessions.get(chatId);
+          console.log(`[DEBUG] Path 1: Country selected, moving to promo code. Country: ${opt.name}`);
+          console.log(`[DEBUG] Path 1: Session saved. Step: ${savedSession?.step}, FlowType: ${savedSession?.flowType}, Lang: ${savedSession?.lang}`);
 
           // Non-Empty String Check: Check translation directly before using
           const lang = session.lang || 'en';
@@ -890,7 +916,23 @@ bot.on('callback_query', async (query) => {
           await bot.sendMessage(chatId, promoPromptText, {
             reply_markup: { inline_keyboard: [[{ text: backText, callback_data: 'back_to_main' }]] }
           });
+          
+          // Update the Step: Verify session was saved correctly after sending message
+          const finalSession = sessions.get(chatId);
           console.log(`[DEBUG] Path 1: Promo code prompt sent successfully for Option 1`);
+          console.log(`[DEBUG] Path 1: Final session verification. Step: ${finalSession?.step}, FlowType: ${finalSession?.flowType}, Lang: ${finalSession?.lang}, Has country: ${!!finalSession?.data?.country}`);
+          
+          if (!finalSession || finalSession.step !== 'AWAITING_PROMOCODE') {
+            console.error(`[ERROR] Path 1: Session was not saved correctly! Expected step: AWAITING_PROMOCODE, Got: ${finalSession?.step || 'none'}`);
+            // Force Session Creation: Re-create session if it was lost
+            sessions.set(chatId, {
+              lang: selectedLang,
+              step: 'AWAITING_PROMOCODE',
+              flowType: 'fill_info',
+              data: { country: opt.name }
+            });
+            console.log(`[ERROR] Path 1: Re-created session for chatId: ${chatId}`);
+          }
         } else {
           console.error(`[DEBUG] Path 1: Country option not found for callback: ${query.data}`);
           // State Reset: Send error recovery message
@@ -1264,9 +1306,15 @@ bot.on('message', async (msg) => {
   const hasContact = !!msg.contact;
 
   if (msg.from?.is_bot) return;
-  const session = sessions.get(chatId);
+  let session = sessions.get(chatId);
   if (!session || !session.step) {
-    console.log(`[DEBUG] Message ignored: no session or step. ChatId: ${chatId}, Has session: ${!!session}, Step: ${session?.step || 'none'}`);
+    console.log(`[DEBUG] Message ignored: no session or step. ChatId: ${chatId}, Has session: ${!!session}, Step: ${session?.step || 'none'}, FlowType: ${session?.flowType || 'none'}`);
+    // Logging: Show why the session is missing
+    if (!session) {
+      console.log(`[DEBUG] Session is completely missing for chatId: ${chatId}. This might happen if the user sent a message before completing registration flow.`);
+    } else if (!session.step) {
+      console.log(`[DEBUG] Session exists but has no step. Session data:`, JSON.stringify(session));
+    }
     return;
   }
   // Allow contact when in get_phone; otherwise require text
