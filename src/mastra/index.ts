@@ -950,19 +950,32 @@ bot.on('callback_query', async (query) => {
     return;
   }
 
-  // Country selection (Option 1) — callback ensures correct transition, answerCallbackQuery already called first
+  // Country selection (Option 1) — callback ensures correct transition
   if (query.data?.startsWith('country_') && session.step === 'get_country') {
+    // Answer callback immediately to stop loading spinner
+    try {
+      await bot.answerCallbackQuery(query.id);
+    } catch (_) {
+      // Ignore if already answered
+    }
+    
     if (query.data === 'country_OTHER') {
+      session.step = 'get_country'; // Keep same step for typing
+      sessions.set(chatId, session);
       await bot.sendMessage(chatId, t(chatId, 'typeCountry'), {
         reply_markup: { inline_keyboard: [[{ text: t(chatId, 'back'), callback_data: 'back_to_main' }]] }
       });
       return;
     }
+    
     const opt = COUNTRY_OPTIONS.find((o) => o.cb === query.data);
     if (opt) {
+      // Update state immediately
       session.data.country = opt.name;
       session.step = 'get_promo_code';
       sessions.set(chatId, session);
+      
+      // Send next prompt immediately
       await bot.sendMessage(chatId, t(chatId, 'enterPromoCode'), {
         reply_markup: { inline_keyboard: [[{ text: t(chatId, 'back'), callback_data: 'back_to_main' }]] }
       });
