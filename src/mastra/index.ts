@@ -810,66 +810,88 @@ bot.on('callback_query', async (query) => {
   }
 
   // Country selection handler - MUST be first to answer immediately
-  if (query.data?.startsWith('country_') && session.step === 'get_country') {
-    // Add the Handshake: answer immediately when any country button is pressed
+  if (query.data?.startsWith('country_')) {
+    // End the Spinner: answer immediately when any country button is pressed (BEFORE any other logic)
     try {
       await bot.answerCallbackQuery(query.id);
-    } catch (_) {
-      // Ignore if already answered
+    } catch (err) {
+      console.error('Error answering callback query:', err);
+      // Continue even if answer fails
     }
 
-    if (query.data === 'country_OTHER') {
-      session.step = 'get_country'; // Keep same step for typing
-      sessions.set(chatId, session);
-      const typeCountryText = safeMessage(t(chatId, 'typeCountry', 'Please type your country:'), 'Please type your country:');
-      const backText = safeMessage(t(chatId, 'back', '🔙 Back'), '🔙 Back');
-      if (!typeCountryText || !backText) {
-        console.error('Error: Empty translation for typeCountry or back');
+    // Only process if user is in get_country step
+    if (session.step === 'get_country') {
+      console.log(`[DEBUG] Country button clicked: ${query.data}, Current step: ${session.step}, FlowType: ${session.flowType || 'none'}`);
+
+      if (query.data === 'country_OTHER') {
+        session.step = 'get_country'; // Keep same step for typing
+        sessions.set(chatId, session);
+        const typeCountryText = safeMessage(t(chatId, 'typeCountry', 'Please type your country:'), 'Please type your country:');
+        const backText = safeMessage(t(chatId, 'back', '🔙 Back'), '🔙 Back');
+        if (!typeCountryText || !backText) {
+          console.error('Error: Empty translation for typeCountry or back');
+          return;
+        }
+        await bot.sendMessage(chatId, typeCountryText, {
+          reply_markup: { inline_keyboard: [[{ text: backText, callback_data: 'back_to_main' }]] }
+        });
         return;
       }
-      await bot.sendMessage(chatId, typeCountryText, {
-        reply_markup: { inline_keyboard: [[{ text: backText, callback_data: 'back_to_main' }]] }
-      });
-      return;
-    }
 
-    const opt = COUNTRY_OPTIONS.find((o) => o.cb === query.data);
-    if (opt) {
-      // Switch to Promo State: set user state to AWAITING_PROMOCODE
-      session.data.country = opt.name;
-      session.step = 'AWAITING_PROMOCODE';
-      sessions.set(chatId, session);
+      const opt = COUNTRY_OPTIONS.find((o) => o.cb === query.data);
+      if (opt) {
+        // Force State Change: Explicitly set the user's state to AWAITING_PROMOCODE
+        session.data.country = opt.name;
+        session.step = 'AWAITING_PROMOCODE';
+        sessions.set(chatId, session);
+        
+        console.log(`[DEBUG] User transitioned to PROMO state for Option 1. Country: ${opt.name}, New step: ${session.step}, FlowType: ${session.flowType || 'none'}`);
 
-      // Ask for the Code: send message asking for promo code with validation
-      const promoPromptText = safeMessage(
-        t(chatId, 'countrySelectedPromoCode', 'Country selected! Now, please type your Promo Code to continue.'),
-        'Country selected! Now, please type your Promo Code to continue.'
-      );
-      const backText = safeMessage(t(chatId, 'back', '🔙 Back'), '🔙 Back');
-      
-      if (!promoPromptText || !backText) {
-        console.error('Error: Attempted to send empty message after country selection');
-        return;
+        // Ask for the Code: send message asking for promo code with validation
+        const promoPromptText = safeMessage(
+          t(chatId, 'countrySelectedPromoCode', 'Country selected! Now, please type your Promo Code to continue.'),
+          'Country selected! Now, please type your Promo Code to continue.'
+        );
+        const backText = safeMessage(t(chatId, 'back', '🔙 Back'), '🔙 Back');
+        
+        if (!promoPromptText || !backText) {
+          console.error('Error: Attempted to send empty message after country selection');
+          return;
+        }
+        
+        console.log(`[DEBUG] Sending promo code prompt to user. Text length: ${promoPromptText.length}`);
+        await bot.sendMessage(chatId, promoPromptText, {
+          reply_markup: { inline_keyboard: [[{ text: backText, callback_data: 'back_to_main' }]] }
+        });
+        console.log(`[DEBUG] Promo code prompt sent successfully`);
+      } else {
+        console.error(`[DEBUG] Country option not found for callback: ${query.data}`);
       }
-      
-      await bot.sendMessage(chatId, promoPromptText, {
-        reply_markup: { inline_keyboard: [[{ text: backText, callback_data: 'back_to_main' }]] }
-      });
+    } else {
+      console.log(`[DEBUG] Country button clicked but user not in get_country step. Current step: ${session.step}`);
     }
     return;
   }
 
   // Clean up: ignore old country button clicks when user is already awaiting promo code
   if (session.step === 'AWAITING_PROMOCODE' && query.data?.startsWith('country_')) {
-    await bot.answerCallbackQuery(query.id);
+    console.log(`[DEBUG] Ignoring old country button click. User already in AWAITING_PROMOCODE state.`);
+    try {
+      await bot.answerCallbackQuery(query.id);
+    } catch (_) {
+      // Ignore if already answered
+    }
     return;
   }
 
   // Answer immediately to prevent "query is too old" / timeout — do not await long work before this
-  try {
-    await bot.answerCallbackQuery(query.id);
-  } catch (_) {
-    // Timeout or stale query; ignore so it doesn't crash the bot
+  // Skip if already answered by country handler above
+  if (!query.data?.startsWith('country_')) {
+    try {
+      await bot.answerCallbackQuery(query.id);
+    } catch (_) {
+      // Timeout or stale query; ignore so it doesn't crash the bot
+    }
   }
 
   // Language selection
@@ -1200,10 +1222,20 @@ bot.on('message', async (msg) => {
 
   if (msg.from?.is_bot) return;
   const session = sessions.get(chatId);
-  if (!session || !session.step) return;
+  if (!session || !session.step) {
+    console.log(`[DEBUG] Message ignored: no session or step. ChatId: ${chatId}, Has session: ${!!session}, Step: ${session?.step || 'none'}`);
+    return;
+  }
   // Allow contact when in get_phone; otherwise require text
-  if (!text && !(session.step === 'get_phone' && hasContact)) return;
-  if (text && text.startsWith('/')) return;
+  if (!text && !(session.step === 'get_phone' && hasContact)) {
+    console.log(`[DEBUG] Message ignored: no text and not get_phone with contact. Step: ${session.step}, Has text: ${!!text}, Has contact: ${hasContact}`);
+    return;
+  }
+  if (text && text.startsWith('/')) {
+    console.log(`[DEBUG] Message ignored: starts with /. Text: ${text.substring(0, 20)}`);
+    return;
+  }
+  console.log(`[DEBUG] Processing message. Step: ${session.step}, FlowType: ${session.flowType || 'none'}, Text length: ${text?.length || 0}`);
 
   // Helper to build review summary and show Confirm / Start Over (fill_info) or Verify + Confirm Activation / Cancel (link)
   const sendReviewAndSetStep = () => {
@@ -1322,6 +1354,7 @@ bot.on('message', async (msg) => {
 
     case 'get_promo_code':
     case 'AWAITING_PROMOCODE':
+      console.log(`[DEBUG] Message received in AWAITING_PROMOCODE state. Text: ${text?.substring(0, 20) || 'empty'}, FlowType: ${session.flowType || 'none'}`);
       // Validation logic: accept only the accepted promo code
       if (!text || text.trim().length === 0 || text.startsWith('/')) {
         const reminderText = safeMessage(t(chatId, 'excellentPromoCodeContinue', 'Excellent! Please now type your Promo Code to continue.'), 'Excellent! Please now type your Promo Code to continue.');
